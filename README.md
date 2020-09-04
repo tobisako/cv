@@ -202,6 +202,6 @@ SLACK、Discode、Telegram 等のコミュニティーに参加し、モダン�
 
 # その他
 
-職務経歴書(2016 年版）は [コチラ](https://github.com/tobisako/index)
+旧職務経歴書(2016 年）は [コチラ](https://github.com/tobisako/index)
 
-※職務経歴書の詳細は別途用意しています。こちらにお問い合わせ下さい。
+※職務経歴書の詳細は別途用意しています。[こちら](mailto:tobisako@gridworld.co)までお問い合わせ下さい。
