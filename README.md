@@ -7,7 +7,7 @@
 | Web | https://gridworld.co/ |
 | 連絡先 | tobisako@gridworld.co |
 | GitHub | 個人: https://github.com/tobisako/cv ／ 法人: https://github.com/GridWorldOrganization |
-| 作成日 | 2026年7月版（副業案件応募向け強化版） |
+| 作成日 | 2026年7月版 |
 
 ---
 
