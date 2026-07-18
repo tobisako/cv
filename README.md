@@ -1,6 +1,6 @@
 # 職務経歴書
 
-> 🌐 **ポートフォリオページ（GitHub Pages）**: <a href="https://tobisako.github.io/cv/" target="_blank" rel="noopener">https://tobisako.github.io/cv/</a> — GitHub Pages を公開している各リポジトリのバナー紹介つき
+> 🌐 **ポートフォリオページ（GitHub Pages）**: <https://tobisako.github.io/cv/> — GitHub Pages を公開している各リポジトリのバナー紹介つき
 
 
 | 氏名 | 飛峪 龍一(とびさこ りゅういち) |
