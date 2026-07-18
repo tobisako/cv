@@ -9,7 +9,7 @@
 | 関連 | **GridJapan 株式会社**(代表取締役、2025年10月設立・カンボジアオフショア特化) |
 | Web | https://gridworld.co/ |
 | 連絡先 | tobisako@gridworld.co |
-| GitHub | 個人: https://github.com/tobisako ／ 法人: https://github.com/GridWorldOrganization |
+| GitHub | 個人: https://github.com/tobisako ／ 法人: https://github.com/GridWorldOrganization ・ https://github.com/GridJapan |
 | 作成日 | 2026年7月版 |
 
 ---
