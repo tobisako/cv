@@ -33,6 +33,7 @@
 - **炎上・停滞案件の巻き取り〜ローンチ** — 頓挫していた駐車場システムを、20名体制で自社4部署＋既存3ベンダーを統括し、認識管制機能や暫定保守ツールの内製まで含めて導入可能な品質へ引き上げ、約10数店舗へ展開
 - **多組織・多ベンダー統括** — 予算約1億円のキャリア共通プラットフォームで3社を横断統括し、ベトナムオフショア8名を指導。統括部長としては技術組織を30→60名へ拡大し、社内受託開発を新規5本＋追加10本（1本1,500万〜5,000万円規模）獲得。契約書の精査・スコープ防衛・品質／納期ゲートの設計。PMBOK準拠、NPMO PJM-A
 - **技術理解に基づく上流折衝** — 4社合同の列車位置把握プロジェクトでは、電波状況・利用量の調査資料で発注元本部の承認を取り付け、携帯端末300台を納品。要件の削り方、意思決定の取り付け、RFP作成・フィールドテストまで
+- **AIによるPM業務代行** — 外国人メンバーの作業進捗確認、報告漏れ指摘、AI使用推進、ナッジ（後押し）自動化
 
 ### AI領域
 
@@ -41,7 +42,7 @@
 - **AIエージェントの本番運用基盤** — OSSエージェント（Hermes）を fork し、AWS Bedrock AgentCore から EC2（ARM64／Graviton）へ移行してコストと可用性を最適化。20超の Lambda を5に、状態管理を SQLite へ集約し、OSS標準の構成へリファクタ。複数LLMプロバイダーの並列と、オーケストレーター／ワーカー分業を設計。権限・監査・例外処理・運用責任まで設計して本番化
 - **PM/PMO業務のAI活用リサーチ** — PMO業務をAIで効率化する新サービスの企画に向け、国内外のPM/PMO向けAIツール13社（会議音声・チャット・開発データ系）を一次情報で深掘り調査。公式サイト原文に加え、登記（国税庁法人番号・スウェーデン登記）・SEC文書・独立報道で裏どりし、「状態検知×改善ナッジ」の4要素で横断比較。国内実践企業への対面ヒアリングと、経営層向けダイジェスト資料化まで実施
 - **RAG検索エンジンの構築** — 社内ナレッジ検索の応答を、アーキテクチャを4回書き直して（ローカルバッチ→常駐デーモン→AWSサーバーレス→GPU加速）**17秒→840ms** へ短縮。CUDA 12.4／RTX 4070 SUPER でGPU埋め込み、pgvector ＋ BGE-m3 クロスエンコーダのリランカーで Top-K を並び替え。Google Drive Changes API による差分同期、4並列ワーカー、per-drive 分離スキーマ、ディスク残量ヒステリシスでの自動 pause/resume。固定質問セット（questions.yml）＋評価ハーネス（run_eval.py）で direct／AWS経由の検索品質を回帰検証し、MCP（Streamable HTTP + Basic Auth）で遠隔提供
-- **OSS開発** — 用途特化のツール・アプリを継続的に自作・公開。スライド加工生成アプリ（[gj-slide-composer](https://github.com/tobisako/gj-slide-composer)）、AIでリメークした自作ゲーム（[RustOhkanGame](https://github.com/tobisako/RustOhkanGame)）、端末間で情報連携する iTerm2 拡張（[gjTerm2](https://github.com/GridJapan/gjTerm2)）と PowerShell 拡張（[gj-terminal](https://github.com/GridWorldOrganization/gj-terminal)）、macOSの仮想ディスプレイ系メニューバー常駐アプリ（[gjPiP](https://gridjapan.github.io/gjPiPWindow/jp/)＝PiPから仮想ディスプレイを操作／[FreeDisplay](https://gridjapan.github.io/FreeDisplay/jp/)＝物理モニタ無しでHiDPI仮想ディスプレイを生成）、カンボジア人向け日本語学習ソフト（cambodian-nihongo-speak-training・プライベートリポジトリ）、その他複数
+- **OSS開発** — 用途特化のツール・アプリを継続的に自作・公開。スライド加工生成アプリ（[gjHtmlSlideComposer](https://gridjapan.github.io/gjHtmlSlideComposer/jp/)）、AIでリメークした自作ゲーム（[RustOhkanGame](https://github.com/tobisako/RustOhkanGame)）、端末間で情報連携する iTerm2 拡張（[gjTerm2](https://github.com/GridJapan/gjTerm2)）と PowerShell 拡張（[gj-terminal](https://github.com/GridWorldOrganization/gj-terminal)）、macOSの仮想ディスプレイ系メニューバー常駐アプリ（[gjPiP](https://gridjapan.github.io/gjPiPWindow/jp/)＝PiPから仮想ディスプレイを操作／[FreeDisplay](https://gridjapan.github.io/FreeDisplay/jp/)＝物理モニタ無しでHiDPI仮想ディスプレイを生成）、カンボジア人向け日本語学習ソフト（cambodian-nihongo-speak-training・プライベートリポジトリ）、その他複数
 
 ### エンジニア／技術顧問としての中核価値
 
@@ -335,10 +336,11 @@ Raspberry Pi、Arduino、超音波センサ、SCSI、IEEE1394、ICE(AdvicePro)
 | [google_workspace_mcp](https://github.com/GridWorldOrganization/google_workspace_mcp) | フォーク。スプレッドシート列幅・行高さ操作4ツール追加 |
 | [backlog-mcp-server](https://github.com/GridWorldOrganization/backlog-mcp-server) | フォーク。REST API MCP。feat/update-issue-comment実装 |
 
-### GridJapan 名義で公開（macOS 常駐ツール・本人制作）
+### GridJapan 名義で公開（macOS ツール・本人制作）
 
 | リポジトリ | 概要 |
 |---|---|
+| **[gjHtmlSlideComposer](https://gridjapan.github.io/gjHtmlSlideComposer/jp/)** | 別々のスライドHTMLから1枚単位で拾い集め、自己完結型の1ファイルHTMLに書き出す macOS デスクトップアプリ（Electron）。MIT |
 | **[gjPiP](https://gridjapan.github.io/gjPiPWindow/jp/)** | 仮想ディスプレイを PiP から操作する macOS メニューバー常駐アプリ。2クリックでカーソルが移りそのまま操作。MIT |
 | **[FreeDisplay](https://gridjapan.github.io/FreeDisplay/jp/)** | 物理モニタ無しで HiDPI 仮想ディスプレイを作る macOS 常駐アプリ。公式版のバグ修正・機能追加を施した fork |
 
