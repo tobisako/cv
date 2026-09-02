@@ -42,7 +42,7 @@
 - **PM/PMO業務のAI活用リサーチ** — PMO業務をAIで効率化する新サービスの企画に向け、国内外のPM/PMO向けAIツール13社（会議音声・チャット・開発データ系）を一次情報で深掘り調査。公式サイト原文に加え、登記（国税庁法人番号・スウェーデン登記）・SEC文書・独立報道で裏どりし、「状態検知×改善ナッジ」の4要素で横断比較。国内実践企業への対面ヒアリングと、経営層向けダイジェスト資料化まで実施
 - **AI導入効果の検証設計** — 生成AIに業務ドキュメントを作らせる工程に対し、条件を1つだけ変える統制実験を設計し、生成物を一次資料と1行ずつ突き合わせて根拠の有無を判定。量の差と品質の差を分けて評価し、トークン消費をプラン別の枠消費率へ換算して費用対効果まで数字で示す。RAGでは「入れた情報の種類」と「答えられる質問」の対応関係を実測し、チューニングで埋まる範囲と埋まらない範囲の線を引いた
 - **RAG検索エンジンの構築** — 社内ナレッジ検索の応答を、アーキテクチャを4回書き直して（ローカルバッチ→常駐デーモン→AWSサーバーレス→GPU加速）**17秒→840ms** へ短縮。CUDA 12.4／RTX 4070 SUPER でGPU埋め込み、pgvector ＋ BGE-m3 クロスエンコーダのリランカーで Top-K を並び替え。Google Drive Changes API による差分同期、4並列ワーカー、per-drive 分離スキーマ、ディスク残量ヒステリシスでの自動 pause/resume。固定質問セット（questions.yml）＋評価ハーネス（run_eval.py）で direct／AWS経由の検索品質を回帰検証し、MCP（Streamable HTTP + Basic Auth）で遠隔提供
-- **OSS開発** — 用途特化のツール・アプリを継続的に自作・公開。スライド加工生成アプリ（[gjHtmlSlideComposer](https://gridjapan.github.io/gjHtmlSlideComposer/jp/)）、AIでリメークした自作ゲーム（[RustOhkanGame](https://github.com/tobisako/RustOhkanGame)）、端末間で情報連携する iTerm2 拡張（[gjTerm2](https://github.com/GridJapan/gjTerm2)）と PowerShell 拡張（[gj-terminal](https://github.com/GridWorldOrganization/gj-terminal)）、macOSの仮想ディスプレイ系メニューバー常駐アプリ（[gjPiP](https://gridjapan.github.io/gjPiPWindow/jp/)＝PiPから仮想ディスプレイを操作／[FreeDisplay](https://gridjapan.github.io/FreeDisplay/jp/)＝物理モニタ無しでHiDPI仮想ディスプレイを生成）、Claude Code のトークン消費を常時計測するターミナルモニター（[gClaudeTokenMonitor](https://gridjapan.github.io/gClaudeTokenMonitor/)＝Go・依存ゼロ・単一exe、小型デバイスをサブモニタ表示）、日本語で作って字幕1つから手で直せる動画編集ツール（[gjVideoEditor](https://gridjapan.github.io/gjVideoEditor/jp/)）、カンボジア人向け日本語学習ソフト（cambodian-nihongo-speak-training・プライベートリポジトリ）、その他複数
+- **OSS開発** — 用途特化のツール・アプリを継続的に自作・公開。スライド加工生成アプリ（[gjHtmlSlideComposer](https://gridjapan.github.io/gjHtmlSlideComposer/jp/)）、AIでリメークした自作ゲーム（[RustOhkanGame](https://github.com/tobisako/RustOhkanGame)）、端末間で情報連携する iTerm2 拡張（[gjTerm2](https://github.com/GridJapan/gjTerm2)）と PowerShell 拡張（[gj-terminal](https://github.com/GridWorldOrganization/gj-terminal)）、macOSの仮想ディスプレイ系メニューバー常駐アプリ（[gjPiP](https://gridjapan.github.io/gjPiPWindow/jp/)＝PiPから仮想ディスプレイを操作／[FreeDisplay](https://gridjapan.github.io/FreeDisplay/jp/)＝物理モニタ無しでHiDPI仮想ディスプレイを生成）、Claude Code のトークン消費を常時計測するターミナルモニター（[gClaudeTokenMonitor](https://gridjapan.github.io/gClaudeTokenMonitor/)＝Go・依存ゼロ・単一exe、M5Stack ATOMS3R をサブモニタ表示）、日本語で作って字幕1つから手で直せる動画編集ツール（[gjVideoEditor](https://gridjapan.github.io/gjVideoEditor/jp/)）、カンボジア人向け日本語学習ソフト（cambodian-nihongo-speak-training・プライベートリポジトリ）、その他複数
 
 ### エンジニア／技術顧問としての中核価値
 
@@ -117,7 +117,7 @@ React、Vue.js、Node.js、Electron、Flutter、Express、Spring、jQuery、Sele
 
 ### 3-8. ハードウェア／電子工作
 
-Raspberry Pi、Arduino、超音波センサ、SCSI、IEEE1394、ICE(AdvicePro)
+Raspberry Pi、Arduino、M5Stack ATOMS3R(ESP32-S3／128×128 IPS／IMU。USB経由で200ms間隔の状態送出・30fps描画、アプリからのファーム書き込み・更新)、超音波センサ、SCSI、IEEE1394、ICE(AdvicePro)
 
 ### 3-9. 資格
 
@@ -201,7 +201,7 @@ Raspberry Pi、Arduino、超音波センサ、SCSI、IEEE1394、ICE(AdvicePro)
 | 開始 | 案件・プロジェクト | 役割 | 内容 |
 |---|---|---|---|
 | 2026-08 | **某大手不動産系SIer 上流工程AI導入支援** | AIアーキテクト | 要件定義・プロジェクト計画のドキュメント生成にAIを載せる工程の設計と検証。同一Input・同一指示書でモデルのみを変えた統制実験を設計し、生成物を1行ずつ裏取りして差の要因を特定。指示書（CLAUDE.md）の階層分離設計、AI生成物のエビデンス記録手順の定義、AIにGitHubを操作させる方式の選定とWindows実機ハンズオンまで |
-| 2026-07 | **某SIer 引き継ぎRAG／Office文書生成AIの実証** | 設計・実装・検証 | 退職するベテランSEのナレッジ継承を題材に、投入する情報の種類と回答可能性の対応関係を実験で確定。材料が無いときに作話させないガードを設計。固定費ゼロを制約条件にAWS上でRAGを構成。あわせてOffice文書の部分編集をXML突合で機械検証する仕組みを自作し、公開ベンチの順位と実測の乖離を提示 |
+| 2026-07 | **大手SIer社 引き継ぎRAG／Office文書生成AIの実証** | 設計・実装・検証 | 退職するベテランSEのナレッジ継承を題材に、投入する情報の種類と回答可能性の対応関係を実験で確定。材料が無いときに作話させないガードを設計。固定費ゼロを制約条件にAWS上でRAGを構成。あわせてOffice文書の部分編集をXML突合で機械検証する仕組みを自作し、公開ベンチの順位と実測の乖離を提示 |
 | 2026-06 | **freee API 会計自動化** | 設計・実装 | 楽天市場購入150件、外注費30件（6取引先×税区分判定）、売上11件月別計上、海外出張日当11件（不課税判定）、カード明細1,000件超月別集計、借入利息7件。決済紐付け38件一括解除によるGMO同期二重回避。試算表HTML/PDF自動生成 |
 | 2026-06 | **某証券会社 Playwright自動株取引** | 設計・実装・運用 | 某国の証券口座（長期休眠）をPlaywright headlessで復旧→ポートフォリオ確認→成行売却（約定）・指値発注まで自動化。React SPA対応（native value setter）、WebSSO認証、多言語UI操作、crontab朝アラート、銀行へのメール下書き作成（google-multi MCP） |
 | 2026- | **ClaudeCodeProcessWatcher** | 開発 | Claude Code CLIプロセスのリアルタイム監視ウィンドウ。PID・稼働時間・CPU%・アイドル秒数を可視化 |
@@ -210,7 +210,7 @@ Raspberry Pi、Arduino、超音波センサ、SCSI、IEEE1394、ICE(AdvicePro)
 | 2026- | **AI駆動開発プロセスの標準化** | 設計・運用 | 計画→設計→実装→検証→公開→運用の6段階に、設計承認と本番投入承認の2つの人間ゲートを置いた進め方を定義し、自社案件で運用。各段階の成果物を版管理に残して次段階の入力にする |
 | 2026- | **成果物の規格と機械検査（gjHtmlSlideSpec）** | 設計・開発 | HTMLスライドの規約を定め、lint→変換→回帰検査を通らない成果物は公開できない仕組みにした。別のAIが壊した4種類の崩れをすべて検出し、一部を自動修復 |
 | 2026- | **AIへ渡す権限の設計** | 設計・検証 | 組織ポリシーで越えられない上限を先に決め、その内側で管理者権限を渡す構成。トークンの最小権限・拒否リスト・実行前フック・機密検出の4点を実機で検証 |
-| 2026- | **AI使用量の計測（gClaudeTokenMonitor ほか）** | 設計・開発・公開 | セッションログを差分読みし、トークンとコストを1秒ごとに更新するターミナルモニターを Go で実装（外部依存ゼロ・単一exe・MIT）。ログの重複行を排除し、キャッシュ書込／読出をレート別に換算。公式プラン使用率と実測を同じ時間窓で突き合わせ、小型デバイスをサブモニタとして駆動。別に、複数サービスの残枠を1画面で監視するダッシュボードを内製 |
+| 2026- | **AI使用量の計測（gClaudeTokenMonitor ほか）** | 設計・開発・公開 | セッションログを差分読みし、トークンとコストを1秒ごとに更新するターミナルモニターを Go で実装（外部依存ゼロ・単一exe・MIT）。ログの重複行を排除し、キャッシュ書込／読出をレート別に換算。公式プラン使用率と実測を同じ時間窓で突き合わせ、M5Stack ATOMS3R をサブモニタとして駆動。別に、複数サービスの残枠を1画面で監視するダッシュボードを内製 |
 | 2026- | **gjVideoEditor（動画編集ツール）** | 設計・開発・公開 | AIと編集UIが同一の設定ファイルを書き換える構成の動画編集ツール。動画コンテンツの量産に日常使用 |
 | 2026- | **マカセテ主任AI** | 設計・開発 | 止まった案件・返事のない依頼・空いた予定を毎日巡回して担当者へ個別に声をかけ、応答率・報告漏れ・停滞日数を集計するマネジメントAI |
 | 2025-10 | **GridJapan株式会社 設立** | 代表取締役 | カンボジアオフショア特化のAIコンサル・実装事業。資本金1,000万円。東証グロース上場のEdTech企業と業務委託基本契約締結 |
@@ -396,7 +396,7 @@ AI基盤(grid-ai-web / gj-board-management / ClaudeCodeProcessWatcher 等)、AI�
 | **電力ベンチャー** | Stellar ブロックチェーン電力トラッキング PoC |
 | **東証グロース上場のEdTech企業** | クメール語版 学習教材のレイアウト最適化（GridJapan受注） |
 | **某大手不動産系SIer** | 上流工程（要件定義・プロジェクト計画）へのAI導入支援。モデル比較の統制実験、指示書の階層設計、エビデンス記録運用 |
-| **某SIer** | ナレッジ継承RAGの実験設計・実証、Office文書生成AIの実測（GridJapan受注） |
+| **大手SIer社** | ナレッジ継承RAGの実験設計・実証、Office文書生成AIの実測（GridJapan受注） |
 | **マーケティング支援会社** | マーケティング技術・データ基盤の主要受託元 |
 
 ### チーム体制
