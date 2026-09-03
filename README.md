@@ -38,9 +38,10 @@
 
 開発・自動化の主力に Claude Code、設計の壁打ちに Codex、成果物の辛口レビューとファクトチェックに Grok、調査・文字起こし・要約に Gemini（NotebookLM）・ChatGPT——と複数AIを工程ごとに役割分担させて日常業務で使い倒しており、自作エージェント基盤では Bedrock・OpenRouter・DeepInfra・xAI・Mantle の5社28モデル（＋ローカルLLMの Ollama）を並列運用しています。
 
+- **SIer上流工程へのAI導入（AIアーキテクト）** — 大手SIerの要件定義・プロジェクト計画の工程に、生成AIで文書を作らせる仕組みを設計・導入。指示書（CLAUDE.md）をリポジトリの階層ごとに分けて置く設計、AI生成物のエビデンス記録（Input／Output／モデルとエフォート／トークン使用量）の様式化、AIにGitHubを操作させる方式の選定とWindows実機でのハンズオン、組織共通設定の配信検証までを担当。開発実務はパートナー会社、プロパーは上流SEという体制を前提に、どの成果物からAIに載せるかの順序を設計している
 - **AIエージェントの本番運用基盤** — OSSエージェント（Hermes）を fork し、AWS Bedrock AgentCore から EC2（ARM64／Graviton）へ移行してコストと可用性を最適化。20超の Lambda を5に、状態管理を SQLite へ集約し、OSS標準の構成へリファクタ。複数LLMプロバイダーの並列と、オーケストレーター／ワーカー分業を設計。権限・監査・例外処理・運用責任まで設計して本番化
 - **PM/PMO業務のAI活用リサーチ** — PMO業務をAIで効率化する新サービスの企画に向け、国内外のPM/PMO向けAIツール13社（会議音声・チャット・開発データ系）を一次情報で深掘り調査。公式サイト原文に加え、登記（国税庁法人番号・スウェーデン登記）・SEC文書・独立報道で裏どりし、「状態検知×改善ナッジ」の4要素で横断比較。国内実践企業への対面ヒアリングと、経営層向けダイジェスト資料化まで実施
-- **AI導入効果の検証設計** — 生成AIに業務ドキュメントを作らせる工程に対し、条件を1つだけ変える統制実験を設計し、生成物を一次資料と1行ずつ突き合わせて根拠の有無を判定。量の差と品質の差を分けて評価し、トークン消費をプラン別の枠消費率へ換算して費用対効果まで数字で示す。RAGでは「入れた情報の種類」と「答えられる質問」の対応関係を実測し、チューニングで埋まる範囲と埋まらない範囲の線を引いた
+- **AI導入効果の検証設計** — 導入した工程を「効いたかどうか」まで詰める。条件を1つだけ変える統制実験を設計し、生成物を一次資料と1行ずつ突き合わせて根拠の有無を判定。量の差と品質の差を分けて評価し、トークン消費をプラン別の枠消費率へ換算して費用対効果まで数字で示す。ナレッジ継承RAGでは「入れた情報の種類」と「答えられる質問」の対応関係を実測し、チューニングで埋まる範囲と埋まらない範囲の線を引いた
 - **RAG検索エンジンの構築** — 社内ナレッジ検索の応答を、アーキテクチャを4回書き直して（ローカルバッチ→常駐デーモン→AWSサーバーレス→GPU加速）**17秒→840ms** へ短縮。CUDA 12.4／RTX 4070 SUPER でGPU埋め込み、pgvector ＋ BGE-m3 クロスエンコーダのリランカーで Top-K を並び替え。Google Drive Changes API による差分同期、4並列ワーカー、per-drive 分離スキーマ、ディスク残量ヒステリシスでの自動 pause/resume。固定質問セット（questions.yml）＋評価ハーネス（run_eval.py）で direct／AWS経由の検索品質を回帰検証し、MCP（Streamable HTTP + Basic Auth）で遠隔提供
 - **OSS開発** — 用途特化のツール・アプリを継続的に自作・公開。スライド加工生成アプリ（[gjHtmlSlideComposer](https://gridjapan.github.io/gjHtmlSlideComposer/jp/)）、AIでリメークした自作ゲーム（[RustOhkanGame](https://github.com/tobisako/RustOhkanGame)）、端末間で情報連携する iTerm2 拡張（[gjTerm2](https://github.com/GridJapan/gjTerm2)）と PowerShell 拡張（[gj-terminal](https://github.com/GridWorldOrganization/gj-terminal)）、macOSの仮想ディスプレイ系メニューバー常駐アプリ（[gjPiP](https://gridjapan.github.io/gjPiPWindow/jp/)＝PiPから仮想ディスプレイを操作／[FreeDisplay](https://gridjapan.github.io/FreeDisplay/jp/)＝物理モニタ無しでHiDPI仮想ディスプレイを生成）、Claude Code のトークン消費を常時計測するターミナルモニター（[gClaudeTokenMonitor](https://gridjapan.github.io/gClaudeTokenMonitor/)＝Go・依存ゼロ・単一exe、M5Stack ATOMS3R をサブモニタ表示）、日本語で作って字幕1つから手で直せる動画編集ツール（[gjVideoEditor](https://gridjapan.github.io/gjVideoEditor/jp/)）、カンボジア人向け日本語学習ソフト（cambodian-nihongo-speak-training・プライベートリポジトリ）、その他複数
 
@@ -52,6 +53,7 @@
 
 ### 対応可能領域（案件に応じて）
 
+- **SIer・事業会社の上流工程へのAI導入**（要件定義／プロジェクト計画のドキュメント生成、指示書設計、エビデンス記録、導入効果の検証）
 - PMO／研修カリキュラム開発（大手SIer・大手交通系・通信キャリア向け、PMBOK／NPMO PJM-A）
 - マーケティング技術／データ基盤（GA4／サーバーサイドGTM／Databricks 導入PoC・技術検証）
 - カンボジア拠点を活かした受託・常駐体制（日本語対応メンバー）
