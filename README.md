@@ -19,9 +19,9 @@
 
 1994年から、組込み（μITRON／C）からモバイル（BREW／Android／iOS）、Web/SaaS、ブロックチェーン、AIまで、技術世代が変わるたびに、その都度の制約の下で設計判断を下し、実装まで通してきたエンジニア／プロジェクトマネージャです。SEから始まり、プリセールス、PM、CTOへと役割を広げ、2017年に独立し、2020年に GridWorld 合同会社、2025年に GridJapan 株式会社を設立しました（いずれも代表）。
 
-株式会社アクターリアリティーでは技術部門を統括するCTOとして、派遣主体の事業を社内受託開発へ転換し、会社売上を4億→7億円へ押し上げ（社長賞）。炎上・停滞した案件を巻き取り、要件を削り体制を組み直してローンチまで通す現場力を、複数社のPM／PL／統括部長として発揮してきました。予算約1億円のキャリア向け共通プラットフォーム開発では、足並みの揃わない3社を横断する統一フレームワークを設計・展開し、海外オフショアを統括しています。
+株式会社アクターリアリティーでは技術部門を統括するCTOとして、派遣主体の事業を社内受託開発へ転換し、会社売上を4億→7億円へ押し上げ（社長賞）。炎上・停滞した案件を巻き取り、要件を削り体制を組み直してローンチまで通す現場力を、複数社のPM／PL／統括部長として発揮してきました。予算約1億円のキャリア向け共通プラットフォーム開発では、足並みの揃わない3社を横断する統一フレームワークを設計・展開し、海外オフショアを統括しました。
 
-近年はAI基盤（RAG検索エンジン、AIエージェント基盤）を、既存業務・既存コードに、権限・監査・例外処理・運用責任まで含めて本番運用に載せるところまで自ら実装しており、最新スタックでも制約下で詰め切れることを実証しています。また、SIerの上流工程やナレッジ継承へ生成AIを導入する支援では、条件を1つだけ変える統制実験を設計して生成物を一次資料と突き合わせ、品質差の要因とコストを実測で示しています。ブロックチェーン・ハッカソン「Decrypt Tokyo 2019」優勝、ブロックチェーン大学校（FLOC）講師登壇など、技術の言語化・発信も継続しています。
+近年はAI基盤（RAG検索エンジン、AIエージェント基盤）を既存業務・既存コードに組み込み、権限・監査・例外処理・運用責任まで含めて本番運用に載せるところまで自ら実装しており、最新スタックでも、制約の下で実装を詰め切れることを実証しています。また、SIerの上流工程やナレッジ継承の業務へ生成AIを導入する支援では、条件を1つだけ変える統制実験を設計して生成物を一次資料と突き合わせ、品質差の要因とコストを実測で示しています。ブロックチェーン・ハッカソン「Decrypt Tokyo 2019」優勝、ブロックチェーン大学校（FLOC）講師登壇など、技術の言語化・発信も継続しています。
 
 ---
 
@@ -29,7 +29,7 @@
 
 ### PM／プロジェクトマネージャ
 
-- **炎上・停滞案件の巻き取り〜ローンチ** — 頓挫していた駐車場システムを、20名体制で自社4部署＋既存3ベンダーを統括し、認識管制機能や暫定保守ツールの内製まで含めて導入可能な品質へ引き上げ、約10数店舗へ展開
+- **炎上・停滞案件の巻き取り〜ローンチ** — 頓挫していた駐車場システムを、20名体制で自社4部署＋既存3ベンダーを統括し、認識管制機能や暫定保守ツールの内製まで含めて導入可能な品質へ引き上げ、十数店舗へ展開
 - **多組織・多ベンダー統括** — 予算約1億円のキャリア共通プラットフォームで3社を横断統括し、ベトナムオフショア8名を指導。統括部長としては技術組織を30→60名へ拡大し、社内受託開発を新規5本＋追加10本（1本1,500万〜5,000万円規模）獲得。契約書の精査・スコープ防衛・品質／納期ゲートの設計。PMBOK準拠、NPMO PJM-A
 - **技術理解に基づく上流折衝** — 4社合同の列車位置把握プロジェクトでは、電波状況・利用量の調査資料で発注元本部の承認を取り付け、携帯端末300台を納品。要件の削り方、意思決定の取り付け、RFP作成・フィールドテストまで
 - **AIによるPM業務代行** — 外国人メンバーの作業進捗確認、報告漏れ指摘、AI使用推進、ナッジ（後押し）自動化
@@ -41,14 +41,14 @@
 - **SIer上流工程へのAI導入（AIアーキテクト）** — 大手SIerの要件定義・プロジェクト計画の工程に、生成AIで設計書を作らせる仕組みを設計・導入。指示書（CLAUDE.md）をリポジトリの階層ごとに分けて置く設計、AI生成物のエビデンス記録（Input／Output／モデルとエフォート／トークン使用量）の様式化、AIにGitHubを操作させる方式の選定とWindows実機でのハンズオン、組織共通設定の配信検証までを担当。開発実務はパートナー会社、プロパーは上流SEという体制を前提に、どの成果物からAIに載せるかの順序を設計している（対応継続中）
 - **AIエージェントの本番運用基盤** — OSSエージェント（Hermes）を fork し、AWS Bedrock AgentCore から EC2（ARM64／Graviton）へ移行してコストと可用性を最適化。20超の Lambda を5に、状態管理を SQLite へ集約し、OSS標準の構成へリファクタ。複数LLMプロバイダーの並列と、オーケストレーター／ワーカー分業を設計。権限・監査・例外処理・運用責任まで設計して本番化
 - **PM/PMO業務のAI活用** — PMO業務をAIで効率化する新サービスの企画に向け、国内外のPM/PMO向けAIツール13社（会議音声・チャット・開発データ系）を一次情報で深掘り調査。公式サイト原文に加え、登記（国税庁法人番号・スウェーデン登記）・SEC文書・独立報道で裏どりし、「状態検知×改善ナッジ」の4要素で横断比較。国内実践企業への対面ヒアリングと、経営層向けダイジェスト資料化まで実施
-- **AI導入効果の検証設計** — 導入した工程を「効いたかどうか」まで詰める。条件を1つだけ変える統制実験を設計し、生成物を一次資料と1行ずつ突き合わせて根拠の有無を判定。量の差と品質の差を分けて評価し、トークン消費をプラン別の枠消費率へ換算して費用対効果まで数字で示す。ナレッジ継承RAGでは「入れた情報の種類」と「答えられる質問」の対応関係を実測し、チューニングで埋まる範囲と埋まらない範囲の線を引いた
+- **AI導入効果の検証設計** — 導入した工程について、「効いたかどうか」まで検証を詰める。条件を1つだけ変える統制実験を設計し、生成物を一次資料と1行ずつ突き合わせて根拠の有無を判定。量の差と品質の差を分けて評価し、トークン消費をプラン別の枠消費率へ換算して費用対効果まで数字で示す。ナレッジ継承RAGでは「入れた情報の種類」と「答えられる質問」の対応関係を実測し、チューニングで埋まる範囲と埋まらない範囲の線を引いた
 - **RAG検索エンジンの構築** — 社内ナレッジ検索の応答を、アーキテクチャを4回書き直して（ローカルバッチ→常駐デーモン→AWSサーバーレス→GPU加速）**17秒→840ms** へ短縮。CUDA 12.4／RTX 4070 SUPER でGPU埋め込み、pgvector ＋ BGE-m3 クロスエンコーダのリランカーで Top-K を並び替え。Google Drive Changes API による差分同期、4並列ワーカー、per-drive 分離スキーマ、ディスク残量ヒステリシスでの自動 pause/resume。固定質問セット（questions.yml）＋評価ハーネス（run_eval.py）で direct／AWS経由の検索品質を回帰検証し、MCP（Streamable HTTP + Basic Auth）で遠隔提供
-- **OSS開発** — 用途特化のツール・アプリを継続的に自作・公開。スライド加工生成アプリ（[gjHtmlSlideComposer](https://gridjapan.github.io/gjHtmlSlideComposer/jp/)）、AIでリメークした自作ゲーム（[RustOhkanGame](https://github.com/tobisako/RustOhkanGame)）、端末間で情報連携する iTerm2 拡張（[gjTerm2](https://github.com/GridJapan/gjTerm2)）と PowerShell 拡張（[gj-terminal](https://github.com/GridWorldOrganization/gj-terminal)）、macOSの仮想ディスプレイ系メニューバー常駐アプリ（[gjPiP](https://gridjapan.github.io/gjPiPWindow/jp/)＝PiPから仮想ディスプレイを操作／[FreeDisplay](https://gridjapan.github.io/FreeDisplay/jp/)＝物理モニタ無しでHiDPI仮想ディスプレイを生成）、Claude Code のトークン消費を常時計測するターミナルモニター（[gClaudeTokenMonitor](https://gridjapan.github.io/gClaudeTokenMonitor/)＝Go・依存ゼロ・単一exe、M5Stack ATOMS3R をサブモニタ表示）、日本語で作って字幕1つから手で直せる動画編集ツール（[gjVideoEditor](https://gridjapan.github.io/gjVideoEditor/jp/)）、カンボジア人向け日本語学習ソフト（cambodian-nihongo-speak-training・プライベートリポジトリ）、その他複数
+- **OSS開発** — 用途特化のツール・アプリを継続的に自作・公開。スライド加工生成アプリ（[gjHtmlSlideComposer](https://gridjapan.github.io/gjHtmlSlideComposer/jp/)）、AIでリメークした自作ゲーム（[RustOhkanGame](https://github.com/tobisako/RustOhkanGame)）、端末間で情報連携する iTerm2 拡張（[gjTerm2](https://github.com/GridJapan/gjTerm2)）と PowerShell 拡張（[gj-terminal](https://github.com/GridWorldOrganization/gj-terminal)）、macOSの仮想ディスプレイ系メニューバー常駐アプリ（[gjPiP](https://gridjapan.github.io/gjPiPWindow/jp/)＝PiPから仮想ディスプレイを操作／[FreeDisplay](https://gridjapan.github.io/FreeDisplay/jp/)＝物理モニタ無しでHiDPI仮想ディスプレイを生成）、Claude Code のトークン消費を常時計測するターミナルモニター（[gClaudeTokenMonitor](https://gridjapan.github.io/gClaudeTokenMonitor/)＝Go・依存ゼロ・単一exe、M5Stack ATOMS3R をサブモニタとして表示）、日本語で作って字幕1つから手で直せる動画編集ツール（[gjVideoEditor](https://gridjapan.github.io/gjVideoEditor/jp/)）、カンボジア人向け日本語学習ソフト（cambodian-nihongo-speak-training・プライベートリポジトリ）、その他複数
 
 ### エンジニア／技術顧問としての中核価値
 
 - **技術世代を横断した設計・実装責任** — 組込み（μITRON／C／ARM）からモバイル（BREW／Android／iOS）、Web/SaaS、ブロックチェーン（Solidity／Bitcoin／Stellar）、AIまで、スタックが替わっても未知の制約下で設計判断を下し、実装まで通してきた。レガシー攻略・移行、性能／並行／互換の難所、障害の切り分けと再発防止までを担う
-- **CTOの技術意思決定 × 事業成果** — 技術選択を事業結果に接続。派遣主体から社内受託開発への転換を主導し、会社売上を4億→7億円へ押し上げ。アーキテクト／テックリード級の意思決定と、採用・育成・技術組織の立ち上げ
+- **CTOの技術意思決定 × 事業成果** — 技術選択を事業成果に結びつける。派遣主体から社内受託開発への転換を主導し、会社売上を4億→7億円へ押し上げ。アーキテクト／テックリード級の意思決定と、採用・育成・技術組織の立ち上げ
 - **難易度の高い実装** — 組込みシミュレータの自作（開発効率の改善）、拠点間ハードウェアVPNの構築、Bitcoinプライバシーウォレット（WalletWasabi／C#・.NET）のSIGBUS原因特定・メモリリーク修正
 
 ### 対応可能領域（案件に応じて）
@@ -113,7 +113,7 @@ React、Vue.js、Node.js、Electron、Flutter、Express、Spring、jQuery、Sele
 
 - **クラウド**: AWS（Lambda・API Gateway・SSM・Secrets Manager・S3・CloudWatch・Bedrock AgentCore）、GCP、Firebase
 - **DevOps**: Git／GitHub、GitHub Actions、CircleCI、Jenkins、Docker、Heroku
-- **MCP連携済みサービス**: freee、ChatWork、Backlog、Google Workspace、Playwright、Canva、Gmail、Google Calendar/Drive
+- **MCP連携済みサービス**: freee、Chatwork、Backlog、Google Workspace、Playwright、Canva、Gmail、Google Calendar/Drive
 - **OS／組込**: Linux(Ubuntu / CentOS)、Windows、Mac、Windows7 Embedded、μITRON、REX-OS、BREW、ARM-C
 - **DB**: Oracle、MySQL、PostgreSQL(pgvector 含む)、SQLite、Btrieve、DynamoDB、MongoDB、BigQuery
 
@@ -203,8 +203,8 @@ Raspberry Pi、Arduino、M5Stack ATOMS3R(ESP32-S3／128×128 IPS／IMU。USB経�
 | 開始 | 案件・プロジェクト | 役割 | 内容 |
 |---|---|---|---|
 | 2026-08 | **某大手不動産系SIer 上流工程AI導入支援** | AIアーキテクト | 要件定義・プロジェクト計画のドキュメント生成にAIを載せる工程の設計と検証。同一Input・同一指示書でモデルのみを変えた統制実験を設計し、生成物を1行ずつ裏取りして差の要因を特定。指示書（CLAUDE.md）の階層分離設計、AI生成物のエビデンス記録手順の定義、AIにGitHubを操作させる方式の選定とWindows実機ハンズオンまで |
-| 2026-07 | **大手SIer社 引き継ぎRAG／Office文書生成AIの実証** | 設計・実装・検証 | 退職するベテランSEのナレッジ継承を題材に、投入する情報の種類と回答可能性の対応関係を実験で確定。材料が無いときに作話させないガードを設計。固定費ゼロを制約条件にAWS上でRAGを構成。あわせてOffice文書の部分編集をXML突合で機械検証する仕組みを自作し、公開ベンチの順位と実測の乖離を提示 |
-| 2026-06 | **freee API 会計自動化** | 設計・実装 | 楽天市場購入150件、外注費30件（6取引先×税区分判定）、売上11件月別計上、海外出張日当11件（不課税判定）、カード明細1,000件超月別集計、借入利息7件。決済紐付け38件一括解除によるGMO同期二重回避。試算表HTML/PDF自動生成 |
+| 2026-07 | **大手SIer社 ナレッジ継承RAG／Office文書生成AIの実証** | 設計・実装・検証 | 退職するベテランSEのナレッジ継承を題材に、投入する情報の種類と回答可能性の対応関係を実験で確定。材料が無いときに作話させないガードを設計。固定費ゼロを制約条件にAWS上でRAGを構成。あわせてOffice文書の部分編集をXML突合で機械検証する仕組みを自作し、公開ベンチの順位と実測の乖離を提示 |
+| 2026-06 | **freee API 会計自動化** | 設計・実装 | 楽天市場購入150件、外注費30件（6取引先×税区分判定）、売上11件月別計上、海外出張日当11件（不課税判定）、カード明細1,000件超月別集計、借入利息7件。決済紐付け38件を一括解除し、GMO同期による二重計上を回避。試算表HTML/PDF自動生成 |
 | 2026-06 | **某証券会社 Playwright自動株取引** | 設計・実装・運用 | 某国の証券口座（長期休眠）をPlaywright headlessで復旧→ポートフォリオ確認→成行売却（約定）・指値発注まで自動化。React SPA対応（native value setter）、WebSSO認証、多言語UI操作、crontab朝アラート、銀行へのメール下書き作成（google-multi MCP） |
 | 2026- | **ClaudeCodeProcessWatcher** | 開発 | Claude Code CLIプロセスのリアルタイム監視ウィンドウ。PID・稼働時間・CPU%・アイドル秒数を可視化 |
 | 2026- | **vscode-open-claude-here** | 開発 | VSCode拡張。エクスプローラ右クリック→Claude Code起動 |
@@ -223,7 +223,7 @@ Raspberry Pi、Arduino、M5Stack ATOMS3R(ESP32-S3／128×128 IPS／IMU。USB経�
 | 2025- | **chatwork-multi-mcp-server** | フォーク・拡張・公開 | Chatwork 公式 MCP サーバーのフォーク。複数アカウント対応・40+ツール・3段階プリセットを追加し npm 公開 |
 | 2025- | **backlog-mcp-server** | フォーク・拡張 | Backlog REST API MCPラッパー。未マージ機能（feat/update-issue-comment）実装 |
 | 2025- | **google_workspace_mcp** | フォーク・機能追加 | スプレッドシート列幅・行高さ操作4ツール追加。上流にPR |
-| 2025- | **AI秘書マルチテナント運用** | 設計・運用 | 5体のAI秘書（藤野楓・サクラ・モモ等）をChatWork×AWS Lambda×SSMで並列運用。日次営業パイプライン5段階cron自動実行 |
+| 2025- | **AI秘書マルチテナント運用** | 設計・運用 | 5体のAI秘書（藤野楓・サクラ・モモ等）をChatwork×AWS Lambda×SSMで並列運用。日次営業パイプライン5段階cron自動実行 |
 | 2025- | **ClaudeCodeOnHermesAgent** | 設計・開発 | Claude Code風AIエージェントをAWS Bedrock AgentCore上にサーバーレスデプロイ。LLMルーティング、マルチプロファイル管理 |
 | 2025- | **cambodian-nihongo-speak-training** | 設計・開発 | カンボジア人向け日本語発音録音・分析システム。Electron+React+Lambda。v0.1.1.5リリース |
 | 2025- | **WalletWasabi 貢献** | 調査・修正 | Bitcoin Privacy Wallet（C#/.NET 10）。SIGBUS原因特定（USB SSD→内蔵SSD移行）、CoinJoinフロー監視、メモリリーク修正 |
@@ -237,7 +237,7 @@ Raspberry Pi、Arduino、M5Stack ATOMS3R(ESP32-S3／128×128 IPS／IMU。USB経�
 | 継続 | **大手日用品メーカーのオウンドメディア クラウドサーバー保守** | 大手日用品メーカー | 受託(運用) | AWS EC2環境のサーバーメンテナンス。CentOS 延長サポート対応のパッチ適用、AWS RDS アップデート対応を継続実施 |
 | 2024-09 | 大手ふるさと納税ポータル Phase 1〜2 | 大手ふるさと納税ポータル | 受託 | ふるさと納税ポータル関連 |
 | 継続 | **大手メガバンク様 GTM／タグ運用 テスト／デバッグ支援(主力案件)** | 大手メガバンク | 受託(カンボジアオフショア活用) | メガバンクの多数LP・HP運用に伴う膨大な GTM タグ群のテスト／デバッグを長期継続提供。カンボジアオフショアメンバーがチームとして参画 |
-| 2023-07〜2024 | **Databricks 導入技術調査・PoC・チーム立上げ** | マーケティング支援会社 | 技術リード | Databricks導入案件の受注準備として、AWS/GCP/Azure3エディションの環境構築を検証（AWS版はSQL Warehouse起動・ダッシュボード動作まで完了、GCP版はQuota制約を切り分け）。GTM/GA4/BigQuery連携デモ、Delta Live Tables、Unity Catalog、Lakehouse Federation、Hightouch(Reverse ETL/コンポーザブルCDP)を調査。Data Engineer Associate資格対策を教材化 |
+| 2023-07〜2024 | **Databricks 導入技術調査・PoC・チーム立上げ** | マーケティング支援会社 | 技術リード | Databricks導入案件の受注準備として、AWS／GCP／Azureの3エディションで環境構築を検証（AWS版はSQL Warehouse起動・ダッシュボード動作まで完了、GCP版はQuota制約を切り分け）。GTM/GA4/BigQuery連携デモ、Delta Live Tables、Unity Catalog、Lakehouse Federation、Hightouch(Reverse ETL/コンポーザブルCDP)を調査。Data Engineer Associate資格対策を教材化 |
 | 2024-05 | Reckoner 導入支援 | 広告代理店 | 受託 | iPaaS(Reckoner)導入・連携設計 |
 | 2024-04 | サーバーサイドGTM 自社サイト導入 | 受託元 自社 | 受託 | サーバーサイドGTMの基盤構築 |
 | 2024-01 | ChatGPT 導入研修 | 研修会社 | 講師・教材開発 | 法人向け ChatGPT 研修カリキュラム開発・登壇 |
@@ -305,7 +305,7 @@ Raspberry Pi、Arduino、M5Stack ATOMS3R(ESP32-S3／128×128 IPS／IMU。USB経�
 
 > 従業員 5,000名。大手通信キャリア法人営業部のプリセールス
 
-主要: GPS列車位置把握システム(大手鉄道会社)、ノリホ車掌向け乗客報告、パトライト緊急通報
+主要: GPS列車位置把握システム(大手鉄道会社)、乗車人員報告（ノリホ）。車掌向け、パトライト緊急通報
 
 ---
 
@@ -341,7 +341,7 @@ Raspberry Pi、Arduino、M5Stack ATOMS3R(ESP32-S3／128×128 IPS／IMU。USB経�
 |---|---|
 | **[GridWorldRAG](https://github.com/GridWorldOrganization/GridWorldRAG)** | Google Drive → PostgreSQL+pgvector のセマンティック検索RAG。埋め込み＋リランカー構成、cold 17s→warm 840ms まで最適化 |
 | **[ClaudeCodeOnHermesAgent](https://github.com/GridWorldOrganization/ClaudeCodeOnHermesAgent)** | Claude Code風AIエージェント → AWS Bedrock AgentCore サーバーレス（後にEC2へ移行） |
-| **[ClaudeWorkMulti](https://github.com/GridWorldOrganization/ClaudeWorkMulti)** | ChatWork × Claude × SQS マルチAI人格システム（5会話モード・ルーム別設定） |
+| **[ClaudeWorkMulti](https://github.com/GridWorldOrganization/ClaudeWorkMulti)** | Chatwork × Claude × SQS マルチAI人格システム（5会話モード・ルーム別設定） |
 | **[CambodiaJapanEarthMap](https://github.com/GridWorldOrganization/CambodiaJapanEarthMap)** | 都市名指定→地球儀風地図生成（日本語+クメール語harfbuzz対応） |
 | [google_workspace_mcp](https://github.com/GridWorldOrganization/google_workspace_mcp) | フォーク。スプレッドシート列幅・行高さ操作4ツール追加 |
 | [backlog-mcp-server](https://github.com/GridWorldOrganization/backlog-mcp-server) | フォーク。REST API MCP。feat/update-issue-comment実装 |
@@ -426,7 +426,7 @@ SEから営業・セールスエンジニア、PM、CTOまで幅広い役割を�
 株式会社アクターリアリティーで CTO として **会社売上を 4億 → 7億円に押し上げ、社長賞を受賞しました**。2025年にはGridJapan株式会社を設立し、東証グロース上場企業との取引を実現しています。
 
 ### 最新スタックでも設計・実装・運用まで持っていく
-近年はRAG検索エンジンをGPU／VRAM制約下で構築し、OSSのAIエージェント基盤を AWS Bedrock AgentCore から EC2 へ移行してコスト最適化するなど、AIを既存業務・既存コードに、権限・監査・例外処理・運用責任まで含めて本番運用に載せるところまで自ら手を動かしています。「AIに詳しい」ではなく「制約下で作り切って運用に載せられる」ことが強みです。
+近年はRAG検索エンジンをGPU／VRAM制約下で構築し、OSSのAIエージェント基盤を AWS Bedrock AgentCore から EC2 へ移行してコスト最適化するなど、AIを既存業務・既存コードに組み込み、権限・監査・例外処理・運用責任まで含めて本番運用に載せるところまで自ら手を動かしています。「AIに詳しい」ではなく「制約下で作り切って運用に載せられる」ことが強みです。
 
 ### モダン技術をキャッチアップし続ける姿勢
 組込みからモバイル、Web/SaaS、ブロックチェーン、マーケティング技術、AI／Claude Codeへと領域を都度更新しながら、**30年間、実務を継続**しています。
