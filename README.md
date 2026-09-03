@@ -196,7 +196,7 @@ Raspberry Pi、Arduino、M5Stack ATOMS3R(ESP32-S3／128×128 IPS／IMU。USB経�
 
 ## 5. 職歴詳細
 
-### 5-1. GridWorld(2017年8月〜現在)／ フリーランス → 合同会社(2020年7月設立)
+### 5-1. フリーランス／会社設立
 
 #### 【2025年〜2026年】 Claude Code / MCP / AI自動化領域
 
