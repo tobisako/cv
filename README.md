@@ -11,7 +11,6 @@
 | 連絡先 | tobisako@gridworld.co |
 | GitHub | 個人: https://github.com/tobisako ／ 法人: https://github.com/GridWorldOrganization ・ https://github.com/GridJapan |
 | ポートフォリオ | https://tobisako.github.io/cv/ （公開デモ・GitHub Pages） |
-| 作成日 | 2026年9月版 |
 
 ---
 
