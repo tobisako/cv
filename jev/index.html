@@ -164,6 +164,17 @@
   .cap{margin-top:8px;font-size:13px;color:var(--dim);line-height:1.6}
   .vsbadge{display:flex;align-items:center;justify-content:center;font-family:"Press Start 2P",monospace;font-size:18px;color:var(--coral)}
 
+
+  /* スナップショット */
+  .snaps{margin-top:18px;display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+  @media(max-width:980px){.snaps{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:520px){.snaps{grid-template-columns:1fr}}
+  .snap{--c:var(--pale);background:#0b0f2e;padding:8px 8px 10px;transform:rotate(var(--r,0deg));transition:transform .12s steps(2)}
+  .snap:hover{transform:rotate(0deg) scale(1.03);z-index:2}
+  .snap img,.snap video{display:block;width:100%;height:auto;background:#000}
+  .snap figcaption{margin-top:8px;font-size:13px;line-height:1.6;color:var(--paper)}
+  .snap .kind{font-family:"Press Start 2P",monospace;font-size:8px;color:var(--yellow);display:block;margin-bottom:4px}
+  @media (prefers-reduced-motion: reduce){.snap{transform:none;transition:none}}
   /* 分かったこと */
   .tips{margin-top:18px;display:grid;gap:14px}
   .tip{--c:var(--yellow);padding:14px 18px 14px 58px;position:relative;font-size:16px;line-height:1.8}
@@ -222,7 +233,7 @@
 
     <div class="stats">
       <div class="stat pxbox"><div class="n dot" data-count="5">5<small> 本</small></div><div class="t">ゲーム（ヘビ・フラッピーバード・ミニマリオ・テトリス2D・テトリス3D）</div></div>
-      <div class="stat pxbox"><div class="n dot" data-count="9">9<small> 本</small></div><div class="t">録画</div></div>
+      <div class="stat pxbox"><div class="n dot" data-count="13">13<small> 本</small></div><div class="t">録画（ほかにスクリーンショット4枚）</div></div>
       <div class="stat pxbox"><div class="n dot" data-count="3">3<small> 種類</small></div><div class="t">判定の型（Choice / Score / Boolean）</div></div>
       <div class="stat pxbox"><div class="n dot">0.3〜0.7<small> 秒</small></div><div class="t">1回の判定（この環境での計測）</div></div>
     </div>
@@ -334,8 +345,8 @@
           <div class="fact pxbox"><span class="k">コードが受け持つこと</span>「はばたく」「はばたかない」のそれぞれについて、この先の操作を全部試し、生き残れる道があるかを調べる。片方でしか生き残れない場面ではコードが行動を決め、どちらでも生き残れる場面でだけ Jev に「今はばたくか」を聞く。</div>
           <div class="fact pxbox"><span class="k">難しくする仕掛け</span>スクロール速度のスライダー（500%まで）。20点ごとに土管の隙間を狭める。</div>
         </div>
-        <div class="score pxbox"><span class="l">SCORE</span><span class="v" data-hiscore="92">92 点</span></div>
-        <div class="cap">スクロール速度を上げながら92点を取り、速度500%でのプレイ途中にゲームオーバー。</div>
+        <div class="score pxbox"><span class="l">SCORE</span><span class="v" data-hiscore="108">108 点</span></div>
+        <div class="cap">ゲームオーバー画面のスクリーンショットでは108点（スクロール速度500%）。動画の中では92点。</div>
       </div>
     </div>
   </section>
@@ -411,6 +422,30 @@
         <div class="score pxbox"><span class="l">JEV</span><span class="v">92 / 101 ミノ</span></div>
         <div class="cap">置き場所を比べる版の録画。101ミノのうち、Jev が配置を選んだのは92ミノ。消えたのは20層、到達したレベルは6。</div>
       </div>
+    </div>
+  </section>
+
+  <!-- ===== スナップショット ===== -->
+  <section id="snapshots">
+    <h2>スナップショット <span class="tag">PHOTO</span></h2>
+    <div class="body"><p>スクリーンショットと短い録画です。</p></div>
+    <div class="snaps">
+      <figure class="snap pxbox" style="--r:-1.5deg"><img src="media/ss-snake.jpg" alt="ヘビのゲーム画面" loading="lazy">
+        <figcaption><span class="kind">STAGE 1 · SHOT</span>ヘビ（速度 Lv10、毎秒50マス）。最下段は Jev の答え（UP、確率0.74）と応答時間（369ms）。</figcaption></figure>
+      <figure class="snap pxbox" style="--r:1deg"><video src="media/clip-flappy.mp4" poster="media/clip-flappy.jpg" autoplay muted loop playsinline aria-label="フラッピーバードの10秒の録画"></video>
+        <figcaption><span class="kind">STAGE 2 · CLIP</span>フラッピーバードの10秒の録画。スクロール速度150%で、スコアが63点から74点まで上がる場面。</figcaption></figure>
+      <figure class="snap pxbox" style="--r:-0.8deg"><img src="media/ss-flappy.jpg" alt="フラッピーバードのゲーム画面" loading="lazy">
+        <figcaption><span class="kind">STAGE 2 · SHOT</span>フラッピーバード（スクロール速度150%、土管の隙間112px）。</figcaption></figure>
+      <figure class="snap pxbox" style="--r:1.6deg"><img src="media/ss-flappy-over.jpg" alt="フラッピーバードのゲームオーバー画面、108点" loading="lazy">
+        <figcaption><span class="kind">STAGE 2 · SHOT</span>ゲームオーバーの画面。スクロール速度500%でプレイし、108点を記録。中央のボタンを押すとオープニングに戻る。</figcaption></figure>
+      <figure class="snap pxbox" style="--r:1.2deg"><img src="media/ss-mario.jpg" alt="ミニマリオ STAGE 1-1 の画面" loading="lazy">
+        <figcaption><span class="kind">STAGE 3 · SHOT</span>ミニマリオ STAGE 1-1。上の欄は Jev の6問の答えと先読みの結果で、この場面では止まると死に、走れば安全。</figcaption></figure>
+      <figure class="snap pxbox" style="--r:-1.4deg"><video src="media/clip-mario-allclear.mp4" poster="media/clip-mario-allclear.jpg" autoplay muted loop playsinline aria-label="ミニマリオの ALL CLEAR 画面"></video>
+        <figcaption><span class="kind">STAGE 3 · CLIP</span>全10ステージを通った最後の画面（ALL CLEAR）。Jev への問い合わせは350回、失敗は7回。この時点では、右上の操作欄に「人間」と表示されている。</figcaption></figure>
+      <figure class="snap pxbox" style="--r:0.9deg"><video src="media/clip-3d-spin1.mp4" poster="media/clip-3d-spin1.jpg" autoplay muted loop playsinline aria-label="回るテトリス3Dの井戸"></video>
+        <figcaption><span class="kind">STAGE 5 · CLIP</span>テトリス3D。20秒で1周する井戸の動きと、底の円。</figcaption></figure>
+      <figure class="snap pxbox" style="--r:-1deg"><video src="media/clip-3d-spin2.mp4" poster="media/clip-3d-spin2.jpg" autoplay muted loop playsinline aria-label="テトリス3Dと Jev に見せた候補"></video>
+        <figcaption><span class="kind">STAGE 5 · CLIP</span>テトリス3D（レベル3）。右の欄は、Jev に見せた候補 p0〜p3 と、それぞれの落ちたあとの一番下の層。</figcaption></figure>
     </div>
   </section>
 
