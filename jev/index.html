@@ -6,7 +6,7 @@
 <title>TypeSafe AI「Jev」でゲームを5本動かした記録 — tobisako</title>
 <meta name="description" content="TypeSafe AI の System One モデル Jev（構造化意思決定モデル）に判定を任せ、ヘビ・フラッピーバード・ミニマリオ・テトリス2D・テトリス3Dを動かした記録と録画。">
 <meta property="og:title" content="TypeSafe AI「Jev」でゲームを5本動かした記録">
-<meta property="og:description" content="盤面を state に圧縮し、合法手だけを Choice として渡し、物理と衝突はゲームのコードが処理する。判定モデルとハーネスのデモ。">
+<meta property="og:description" content="Jev とゲームのコードで判定を分担し、ゲームを5本動かしたデモ。盤面は state にまとめ、Jev に渡す選択肢には合法手だけを並べ、物理演算と衝突判定はゲームのコードが処理する。">
 <meta property="og:image" content="https://tobisako.github.io/cv/jev/img/hero.jpg">
 <meta property="og:type" content="article">
 <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
@@ -85,7 +85,7 @@
   @media(max-width:760px){.stats{grid-template-columns:repeat(2,1fr)}}
   .stat{--c:var(--cyan);padding:14px 16px}
   .stat .n{font-size:28px;color:var(--yellow);line-height:1.2}
-  .stat .n small{font-size:14px;color:var(--paper)}
+  .stat .n small{font-size:14px;color:var(--paper);margin-left:.3em}
   .stat .t{margin-top:4px;font-size:13.5px;color:var(--dim);line-height:1.6}
   .press{display:inline-block;margin-top:26px;font-size:13px;color:var(--pale);text-decoration:none}
   .press:hover{color:var(--yellow)}
@@ -141,7 +141,7 @@
   .select a:hover{--c:var(--yellow);transform:translate(-2px,-2px);color:#fff}
   .select a .s{font-family:"Press Start 2P",monospace;font-size:9px;color:var(--coral)}
   .select a .g{display:block;font-family:"DotGothic16",monospace;font-size:17px;margin-top:6px}
-  .dd{font-family:"Press Start 2P",monospace;font-size:.72em;letter-spacing:0}  /* DotGothic16 の D は 0 に見えるので */
+  .dd{font-family:"Press Start 2P",monospace;font-size:.72em;letter-spacing:0;margin-left:.35em}  /* DotGothic16 の D は 0 に見えるので */
   .select a img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;margin-top:8px;image-rendering:auto;filter:saturate(1.1)}
 
   /* ステージ */
@@ -180,12 +180,6 @@
   .tip{--c:var(--yellow);padding:14px 18px 14px 58px;position:relative;font-size:16px;line-height:1.8}
   .tip::before{content:"★";position:absolute;left:18px;top:12px;color:var(--yellow);font-size:22px}
 
-  /* 経歴文（紙） */
-  .paper{--c:var(--paper);background:var(--paper);color:var(--ink);padding:22px 24px;margin-top:18px;font-size:16px;line-height:2}
-  .copy{margin-top:12px;font-family:"Press Start 2P",monospace;font-size:10px;background:var(--coral);color:#fff;border:0;padding:10px 14px;cursor:pointer}
-  .copy:hover{background:var(--yellow);color:var(--ink)}
-  .copied{margin-left:10px;font-family:"Press Start 2P",monospace;font-size:10px;color:var(--yellow);opacity:0;transition:opacity .2s}
-
   /* 出典 */
   .credits{margin-top:14px;font-size:14px;line-height:1.9;color:var(--dim)}
   .credits li{margin-left:1.2em}
@@ -221,7 +215,7 @@
     <div class="kicker arcade">SYSTEM ONE × 5 GAMES</div>
     <h1 class="dot">TypeSafe AI「Jev」<small>System One モデル／構造化意思決定モデル</small></h1>
     <div class="en mono">TypeSafe AI Jev — System One evaluation model (typed decisions: Choice / Score / Boolean)</div>
-    <p class="lead">Jev に判定を任せて、ゲームを5本動かしました。盤面を state に圧縮し、合法手だけを Choice として渡し、物理と衝突はゲームのコードが処理します。そのつくりと録画をまとめたページです。</p>
+    <p class="lead">Jev とゲームのコードで判定を分担して、ゲームを5本動かしました。盤面は state にまとめ、Jev に渡す選択肢には合法手だけを並べます。将棋・囲碁・チェスでは「ルール上打てる手」を合法手と呼びます。物理演算と衝突判定はゲームのコードが処理します。このページには、そのつくりと録画をまとめました。</p>
 
     <div class="hero-grid">
       <img class="hero-img" src="img/hero.jpg" alt="3枚の札（選択肢・メーター・チェック）を上げた判定係のロボットと、ヘビ・鳥・ペンギン・落ちものブロック・3Dの塔が映る5台のゲーム画面" width="1200" height="676">
@@ -232,10 +226,10 @@
     </div>
 
     <div class="stats">
-      <div class="stat pxbox"><div class="n dot" data-count="5">5<small> 本</small></div><div class="t">ゲーム（ヘビ・フラッピーバード・ミニマリオ・テトリス2D・テトリス3D）</div></div>
-      <div class="stat pxbox"><div class="n dot" data-count="13">13<small> 本</small></div><div class="t">録画（ほかにスクリーンショット4枚）</div></div>
-      <div class="stat pxbox"><div class="n dot" data-count="3">3<small> 種類</small></div><div class="t">判定の型（Choice / Score / Boolean）</div></div>
-      <div class="stat pxbox"><div class="n dot">0.3〜0.7<small> 秒</small></div><div class="t">1回の判定（この環境での計測）</div></div>
+      <div class="stat pxbox"><div class="n dot" data-count="5">5<small>本</small></div><div class="t">ゲーム（ヘビ・フラッピーバード・ミニマリオ・テトリス2D・テトリス3D）</div></div>
+      <div class="stat pxbox"><div class="n dot" data-count="13">13<small>本</small></div><div class="t">録画（ほかにスクリーンショット4枚）</div></div>
+      <div class="stat pxbox"><div class="n dot" data-count="3">3<small>種類</small></div><div class="t">判定の型（Choice / Score / Boolean）</div></div>
+      <div class="stat pxbox"><div class="n dot">0.3〜0.7<small>秒</small></div><div class="t">1回の判定（この環境での計測）</div></div>
     </div>
     <a class="press arcade" href="#select">PRESS START <span class="blink">▶</span></a>
   </header>
@@ -244,9 +238,9 @@
   <section id="about">
     <h2>Jev とは <span class="tag">ABOUT</span></h2>
     <div class="body">
-      <p>Jev は TypeSafe AI が 2026 年に出した、文章を書かない意思決定モデルです。入力は会話履歴ではなく、プログラムが渡す state（状況）と、型のついた questions（判定項目）です。出力は作文ではなく、選択肢・スコア・真偽の確率です。コードはその値で分岐します。</p>
+      <p>Jev は、TypeSafe AI が 2026 年に公開した意思決定モデルです。入力は会話履歴ではなく、プログラムが渡す state（状況）と、型のついた questions（判定項目）です。出力は文章ではなく、選択の結果・スコア・真である確率で、コードはその値で分岐します。</p>
       <p>ChatGPT 系は、トークンを順に生成する対話・作文のモデルです。Jev は、同じ state に対する複数の判定をまとめて返し、その値をソフトウェアがそのまま使います。公式ブログはこれを「<span class="mono">unstructured state in, typed probabilistic decisions out</span>」と書いています。<a class="src" href="https://typesafe.ai/blog/introducing-system-one-models-and-jev" target="_blank" rel="noopener">[1]</a> Jev を置くのは、エージェントやゲームループの中で次の一手を決める層です。</p>
-      <p>Vercel AI Gateway でのモデル名は <code>typesafe-ai/jev</code> で、呼び出しはチャット API ではなく AI SDK の evaluate です。<a class="src" href="https://vercel.com/docs/ai-gateway/modalities/evaluation" target="_blank" rel="noopener">[4]</a> 判定の種類は Choice（列挙から1つ選ぶ）、Score（段階の尺度）、Boolean（真である確率。TypeSafe のドキュメントでの名前は Noul）の3つです。<a class="src" href="https://docs.typesafe.ai/concepts/system-one" target="_blank" rel="noopener">[2]</a></p>
+      <p>Vercel AI Gateway でのモデル名は <code>typesafe-ai/jev</code> で、チャット API ではなく、AI SDK の evaluate から呼び出します。<a class="src" href="https://vercel.com/docs/ai-gateway/modalities/evaluation" target="_blank" rel="noopener">[4]</a> 判定の種類は3つで、AI SDK の型名では Choice（並べた候補から1つ選ぶ）、Score（段階で評価する）、Boolean（真である確率）です。Boolean は、TypeSafe AI のドキュメントでは Noul と呼ばれています。<a class="src" href="https://docs.typesafe.ai/concepts/system-one" target="_blank" rel="noopener">[2]</a></p>
     </div>
   </section>
 
@@ -268,7 +262,7 @@
   <!-- ===== 共通のつくり ===== -->
   <section id="harness">
     <h2>5本に共通するつくり <span class="tag">HARNESS</span></h2>
-    <div class="body"><p>ゲームのデモは、Jev 単体にゲームを遊ばせたものではありません。判定モデルと、それを囲むハーネスの組み合わせです。</p></div>
+    <div class="body"><p>ゲームのデモは、Jev 単体にゲームを遊ばせたものではありません。判定モデルと、その周りで Jev を制御するコード（ハーネス）の組み合わせです。</p></div>
     <div class="flow" aria-label="処理の流れ">
       <div class="node pxbox"><b>ゲーム</b><span>Python・pygame</span></div>
       <div class="arrow" aria-hidden="true">▶</div>
@@ -284,9 +278,9 @@
     </div>
     <ol class="rules">
       <li class="pxbox">画面は送らない。盤面・位置・先読みの結果を、JSON 形式の state にまとめる。</li>
-      <li class="pxbox">選択肢は、コードが「打てる」と確かめた手だけにする。各選択肢には、選んだ場合にどうなるかを示す数字を添える。</li>
+      <li class="pxbox">選択肢は、コードが「打てる」と確かめた手（合法手）だけにする。各選択肢には、選んだ場合にどうなるかを示す数字を添える。</li>
       <li class="pxbox">物理・当たり判定・ライン消しには、ゲーム側のコードをそのまま使う。Jev が返すのは、どの分岐を選ぶかだけ。</li>
-      <li class="pxbox">答えが来ない・遅い・候補の外のときは、コードが先読みで1位になった手を選んで進める。</li>
+      <li class="pxbox">答えが来ないとき、間に合わないとき、候補にない答えが返ってきたときは、コード自身の評価で1位の手を選んで進める。</li>
     </ol>
     <div class="term pxbox mono" aria-live="off">
       <div class="bar">BRIDGE LOG — 127.0.0.1:8787</div>
@@ -302,8 +296,8 @@
       <a class="pxbox" href="#stage1"><span class="s">STAGE 1</span><span class="g">ヘビ</span><img src="media/snake-window.jpg" alt="" loading="lazy"></a>
       <a class="pxbox" href="#stage2"><span class="s">STAGE 2</span><span class="g">フラッピーバード</span><img src="media/flappy.jpg" alt="" loading="lazy"></a>
       <a class="pxbox" href="#stage3"><span class="s">STAGE 3</span><span class="g">ミニマリオ</span><img src="media/mario.jpg" alt="" loading="lazy"></a>
-      <a class="pxbox" href="#stage4"><span class="s">STAGE 4</span><span class="g">テトリス <span class="dd">2D</span></span><img src="media/tetris2d-v2.jpg" alt="" loading="lazy"></a>
-      <a class="pxbox" href="#stage5"><span class="s">STAGE 5</span><span class="g">テトリス <span class="dd">3D</span></span><img src="media/tetris3d.jpg" alt="" loading="lazy"></a>
+      <a class="pxbox" href="#stage4"><span class="s">STAGE 4</span><span class="g">テトリス<span class="dd">2D</span></span><img src="media/tetris2d-v2.jpg" alt="" loading="lazy"></a>
+      <a class="pxbox" href="#stage5"><span class="s">STAGE 5</span><span class="g">テトリス<span class="dd">3D</span></span><img src="media/tetris3d.jpg" alt="" loading="lazy"></a>
     </div>
   </section>
 
@@ -322,7 +316,7 @@
         <div class="facts">
           <div class="fact pxbox"><span class="k">Jev に聞くこと</span>次に進む向き（Choice）。逆走や即死につながる向きは、コードが先に選択肢から外す。</div>
           <div class="fact pxbox"><span class="k">コードが受け持つこと</span>向きごとに、進んだ先の状態（エサまでの距離、残る広さ）を計算して、選択肢の説明に書く。壁に当たってもゲームオーバーにせず、画面を赤く光らせる。</div>
-          <div class="fact pxbox"><span class="k">経過</span>最初は向きの名前だけを渡し、答えは RIGHT に偏った。向きごとの先読みの結果を選択肢に書き足すと、Jev がエサに近づく向きを選ぶようになった。</div>
+          <div class="fact pxbox"><span class="k">経過</span>最初は向きの名前だけを渡したところ、Jev の答えは RIGHT に偏った。向きごとの先読みの結果を選択肢に書き足すと、Jev がエサに近づく向きを選ぶようになった。</div>
         </div>
         <div class="score pxbox"><span class="l">SCORE</span><span class="v" data-hiscore="81">81 点</span></div>
         <div class="cap">録画の中での最高得点</div>
@@ -362,32 +356,32 @@
       </div>
       <div>
         <div class="facts">
-          <div class="fact pxbox"><span class="k">Jev に聞くこと</span>4フレームに1回、6問を1回の evaluate で（進む・戻る等の方針、左右、ダッシュ、ジャンプ、長押し、危険度）。</div>
+          <div class="fact pxbox"><span class="k">Jev に聞くこと</span>6問（進む・戻る等の方針、左右、ダッシュ、ジャンプ、長押し、危険度）。4フレームに1回、1回の evaluate でまとめて聞く。</div>
           <div class="fact pxbox"><span class="k">コードが受け持つこと</span>物理演算と当たり判定、同じ物理モデルでの先読み（跳んだら着地まで確かめる）、安全装置。安全装置は Jev の答えより優先する。</div>
-          <div class="fact pxbox"><span class="k">ステージ</span>自作4本と、SuperTux のアドオン用コースから変換した6本の、計10本。速度は20倍まで上げられる。</div>
-          <div class="fact pxbox"><span class="k">通信</span>録画の終わりの時点で、問い合わせ205回のうち失敗5回（0.7秒の打ち切り）。この回の起動からの計測では、答えが届くまでの時間は中央値0.32秒、最大0.65秒。</div>
+          <div class="fact pxbox"><span class="k">ステージ</span>自作の4本と、SuperTux のアドオン用コースから変換した6本の計10本。速度は20倍まで上げられる。</div>
+          <div class="fact pxbox"><span class="k">通信</span>この節の録画が終わった時点で、問い合わせは205回、そのうち失敗は5回（打ち切りは0.7秒）。この回の起動からの計測では、答えが届くまでの時間は中央値0.32秒、最大0.65秒。</div>
         </div>
         <div class="score pxbox"><span class="l">STAGE</span><span class="v">9 / 10</span></div>
-        <div class="cap">録画では STAGE 2-5「Ghostforest」まで到達</div>
+        <div class="cap">録画では、10ステージ中9番目の STAGE 2-5「Ghostforest」まで到達</div>
       </div>
     </div>
   </section>
 
   <!-- ===== STAGE 4 ===== -->
   <section class="stage" id="stage4">
-    <div class="head"><span class="num">STAGE 4</span><h3>テトリス <span class="dd">2D</span></h3>
+    <div class="head"><span class="num">STAGE 4</span><h3>テトリス<span class="dd">2D</span></h3>
       <span class="orig">元のゲーム: <a href="https://github.com/GABETROLL/Tetris3D" target="_blank" rel="noopener">GABETROLL/Tetris3D</a> の 2D モード（10×20）</span></div>
     <div class="grid">
       <div class="vids">
         <div><div class="cabinet pxbox"><video src="media/tetris2d-v2.mp4" poster="media/tetris2d-v2.jpg" controls preload="none" playsinline></video></div>
-          <div class="cap">録画2（効果音あり）。右上に送受信のハートビート、盤の上に「間に合わず」の表示を付けた版。13倍速で26ラインを消した。</div></div>
+          <div class="cap">録画2（効果音あり）。右上に Jev との送受信を示すハートビート、盤の上に「間に合わず」（Jev の答えが届く前にミノが固定された印）の表示を付けた版。13倍速で26ラインを消した。</div></div>
         <div><div class="cabinet pxbox"><video src="media/tetris2d.mp4" poster="media/tetris2d.jpg" controls preload="none" playsinline></video></div>
           <div class="cap">録画1（効果音あり）。10秒ごとに速度を上げて、16倍速で67ラインのときゲームオーバー。</div></div>
       </div>
       <div>
         <div class="facts">
-          <div class="fact pxbox"><span class="k">Jev に聞くこと</span>このミノをどこに置くか（Choice）、Jev が選んだ場所にミノが着いたら落とすか（Boolean）、危険度（Score）。</div>
-          <div class="fact pxbox"><span class="k">コードが受け持つこと</span>置き場所を全部、ゲーム自身の関数で試して点を付ける（El-Tetris の重み）。1位との点差が15点以内の候補だけを、最大4つ渡す。1つしか残らなければ聞かずに置く。</div>
+          <div class="fact pxbox"><span class="k">Jev に聞くこと</span>このミノをどこに置くか（Choice）、選んだ位置と向きまでミノを動かしたら、そこで一気に落とすか（Boolean）、危険度（Score）。</div>
+          <div class="fact pxbox"><span class="k">コードが受け持つこと</span>置き場所をすべてゲーム自身の関数で試し、置いたあとの盤を El-Tetris の重み（着地の高さ・消えるライン・穴などに掛ける係数）で採点する。1位との点差が15点以内の候補だけを、最大4つ渡す。1つしか残らなければ聞かずに置く。</div>
           <div class="fact pxbox"><span class="k">繋ぐ前に確かめたこと</span>候補からでたらめに選ぶ偽の橋でも、800個のミノを置くまでゲームオーバーにならなかった。</div>
           <div class="fact pxbox"><span class="k">ゲームオーバーの理由</span>16倍速では、Jev が答える約0.3秒のあいだにミノが約10段落ちる。応答の遅れだけを16倍速のときと同じにしたシミュレーションでも、約72ラインで同じように終わった。</div>
         </div>
@@ -399,7 +393,7 @@
 
   <!-- ===== STAGE 5 ===== -->
   <section class="stage" id="stage5">
-    <div class="head"><span class="num">STAGE 5</span><h3>テトリス <span class="dd">3D</span></h3>
+    <div class="head"><span class="num">STAGE 5</span><h3>テトリス<span class="dd">3D</span></h3>
       <span class="orig">元のゲーム: <a href="https://github.com/GABETROLL/Tetris3D" target="_blank" rel="noopener">GABETROLL/Tetris3D</a> の 3D モード（4×4×20）</span></div>
     <div class="grid">
       <div class="vids">
@@ -407,17 +401,17 @@
           <div class="cap">置き場所を比べる版（効果音あり）。右上に Jev に見せた p0〜p3 と、それぞれの落ちたあとの一番下の層。左上は速度と自然落下速度のスライダー。</div></div>
         <div class="vids two">
           <div><div class="cabinet pxbox"><video src="media/tetris3d-raw1.mp4" poster="media/tetris3d-raw1.jpg" controls preload="none" playsinline></video></div>
-            <div class="cap">生キー版・最初の形。選んだキーを次の答えまで毎フレーム押し続ける。</div></div>
+            <div class="cap">生キー版（Jev にキーを直接選ばせる版）の最初の形。選んだキーを、次の答えが来るまで毎フレーム押し続ける。</div></div>
           <div><div class="cabinet pxbox"><video src="media/tetris3d-raw2.mp4" poster="media/tetris3d-raw2.jpg" controls preload="none" playsinline></video></div>
-            <div class="cap">生キー版・1回の答えでキー1回。</div></div>
+            <div class="cap">生キー版の2つ目の形。1回の答えにつき、キーを1回だけ押す。</div></div>
         </div>
       </div>
       <div>
         <div class="facts">
           <div class="fact pxbox"><span class="k">生キー版</span>Jev に回転キー（<span class="mono">ROTATE_CW_X</span> など）を直接選ばせた。答えは21回すべて HARD（その場で落とす）だった。回転は一度も起きず、約15秒で終わり、消えた層は0。</div>
-          <div class="fact pxbox"><span class="k">置き場所を比べる版</span>コードが最大24姿勢×16位置の置き方それぞれについて、Game3D と同じ関数でミノを回して落とし、落ちたあとの井戸（<span class="mono">after_layers</span>）を上位4つだけ見せる。Jev は p0〜p3 から1つ選ぶ。</div>
-          <div class="fact pxbox"><span class="k">試験</span>候補ごとの after_layers が、本物の盤でその候補の置き方どおりにミノを落として固定した結果と一致することを、乱数を変えた5通りの試合で、60ミノずつ確かめた。</div>
-          <div class="fact pxbox"><span class="k">見た目</span>井戸は20秒で1周する。ミノの回転は、1回0.5秒かけて見せる。層が消えると「+1」と出る。自由落下は1段2000msから始まり、レベルが上がるごとに間隔が100ms短くなる。</div>
+          <div class="fact pxbox"><span class="k">置き場所を比べる版</span>コードが、最大24姿勢×16位置の置き方それぞれについて、Game3D と同じ関数でミノを回して落とす。点が高い4通りの置き方について、ミノを落としたあとの井戸の層（<span class="mono">after_layers</span>）を Jev に見せる。井戸は、ミノを積む 4×4×20 の枠のこと。Jev は p0〜p3 から1つ選ぶ。</div>
+          <div class="fact pxbox"><span class="k">試験</span>乱数を変えた5試合で、各60ミノについて、候補ごとの after_layers が、本物の盤でその候補どおりにミノを落として固定した結果と一致することを確かめた。</div>
+          <div class="fact pxbox"><span class="k">見た目</span>井戸は20秒で1周する。ミノの回転は、1回につき0.5秒かけて見せる。層が消えると「+1」と出る。自然落下の間隔は、1段あたり2000msから始まり、レベルが上がるごとに100msずつ短くなる。</div>
         </div>
         <div class="score pxbox"><span class="l">JEV</span><span class="v">92 / 101 ミノ</span></div>
         <div class="cap">置き場所を比べる版の録画。101ミノのうち、Jev が配置を選んだのは92ミノ。消えたのは20層、到達したレベルは6。</div>
@@ -432,8 +426,8 @@
     <div class="snaps">
       <figure class="snap pxbox" style="--r:-1.5deg"><img src="media/ss-snake.jpg" alt="ヘビのゲーム画面" loading="lazy">
         <figcaption><span class="kind">STAGE 1 · SHOT</span>ヘビ（速度 Lv10、毎秒50マス）。最下段は Jev の答え（UP、確率0.74）と応答時間（369ms）。</figcaption></figure>
-      <figure class="snap pxbox" style="--r:1deg"><video src="media/clip-flappy.mp4" poster="media/clip-flappy.jpg" autoplay muted loop playsinline aria-label="フラッピーバードの10秒の録画"></video>
-        <figcaption><span class="kind">STAGE 2 · CLIP</span>フラッピーバードの10秒の録画。スクロール速度150%で、スコアが63点から74点まで上がる場面。</figcaption></figure>
+      <figure class="snap pxbox" style="--r:1deg"><video src="media/clip-flappy.mp4" poster="media/clip-flappy.jpg" autoplay muted loop playsinline aria-label="フラッピーバードの10秒間の録画"></video>
+        <figcaption><span class="kind">STAGE 2 · CLIP</span>フラッピーバードを10秒間録画したもの。スクロール速度150%で、スコアが63点から74点まで上がる場面。</figcaption></figure>
       <figure class="snap pxbox" style="--r:-0.8deg"><img src="media/ss-flappy.jpg" alt="フラッピーバードのゲーム画面" loading="lazy">
         <figcaption><span class="kind">STAGE 2 · SHOT</span>フラッピーバード（スクロール速度150%、土管の隙間112px）。</figcaption></figure>
       <figure class="snap pxbox" style="--r:1.6deg"><img src="media/ss-flappy-over.jpg" alt="フラッピーバードのゲームオーバー画面、108点" loading="lazy">
@@ -441,7 +435,7 @@
       <figure class="snap pxbox" style="--r:1.2deg"><img src="media/ss-mario.jpg" alt="ミニマリオ STAGE 1-1 の画面" loading="lazy">
         <figcaption><span class="kind">STAGE 3 · SHOT</span>ミニマリオ STAGE 1-1。上の欄は Jev の6問の答えと先読みの結果で、この場面では止まると死に、走れば安全。</figcaption></figure>
       <figure class="snap pxbox" style="--r:-1.4deg"><video src="media/clip-mario-allclear.mp4" poster="media/clip-mario-allclear.jpg" autoplay muted loop playsinline aria-label="ミニマリオの ALL CLEAR 画面"></video>
-        <figcaption><span class="kind">STAGE 3 · CLIP</span>全10ステージを通った最後の画面（ALL CLEAR）。Jev への問い合わせは350回、失敗は7回。この時点では、右上の操作欄に「人間」と表示されている。</figcaption></figure>
+        <figcaption><span class="kind">STAGE 3 · CLIP</span>全10ステージを終えたあとの画面（ALL CLEAR）。画面の表示では、Jev への問い合わせは350回、失敗は7回。この時点では、右上の操作欄に「人間」と表示されている（キーボードからの入力があると、この表示に切り替わる）。</figcaption></figure>
       <figure class="snap pxbox" style="--r:0.9deg"><video src="media/clip-3d-spin1.mp4" poster="media/clip-3d-spin1.jpg" autoplay muted loop playsinline aria-label="回るテトリス3Dの井戸"></video>
         <figcaption><span class="kind">STAGE 5 · CLIP</span>テトリス3D。20秒で1周する井戸の動きと、底の円。</figcaption></figure>
       <figure class="snap pxbox" style="--r:-1deg"><video src="media/clip-3d-spin2.mp4" poster="media/clip-3d-spin2.jpg" autoplay muted loop playsinline aria-label="テトリス3Dと Jev に見せた候補"></video>
@@ -455,15 +449,8 @@
     <div class="tips">
       <div class="tip pxbox">キーを直接選ばせると、Jev は毎回 HARD を選んだ。回して落とした結果を並べて比べさせると、101個のミノのうち92個が、Jev の選んだ配置どおりに置かれた。</div>
       <div class="tip pxbox">Jev の応答は0.3〜0.7秒。ゲームが速くなると、その間にミノや鳥が動く。先読み・安全装置・「間に合わず」の表示はコードの側に置いた。</div>
-      <div class="tip pxbox">片方を選んだときにしか生き残れない場面では、どちらを選ぶかをコードが決め、どちらを選んでもよい場面でだけ Jev に聞いた（フラッピーバード・テトリス）。テトリス2Dでは、この絞り方なら、候補の中からでたらめに選んでも、800個のミノを置くまでゲームオーバーにならなかった。</div>
+      <div class="tip pxbox">フラッピーバードでは、はばたく・はばたかないの一方でしか生き残れない場面はコードが決め、どちらでも生き残れる場面だけ Jev に聞いた。テトリス2Dでは、1位の候補との点差が15点以内の置き場所だけを残し、1つしか残らなければコードが置いた。この絞り方なら、候補からでたらめに選んでも、800個のミノを置くまでゲームオーバーにならなかった。</div>
     </div>
-  </section>
-
-  <!-- ===== 経歴文 ===== -->
-  <section id="cv">
-    <h2>経歴文（職務経歴書用） <span class="tag">CV</span></h2>
-    <div class="paper pxbox" id="cvtext">TypeSafe AI の System One モデル Jev（構造化意思決定モデル）を用い、会話型LLMを介さず、evaluate API で Choice / Score / Boolean を返す経路を実装。Vercel AI Gateway（typesafe-ai/jev）経由で、複数のリアルタイム／ターン制ゲームに対し、ゲーム状態の圧縮・合法手の列挙・モデル判定・安全側フォールバックまでを一連のデモとして構築。生成モデルの代替ではなく、判定結果でソフトウェアが直接分岐できる判定レイヤとしての適用を検証。</div>
-    <button class="copy" type="button" id="copybtn">COPY</button><span class="copied" id="copied">COPIED!</span>
   </section>
 
   <!-- ===== 出典 ===== -->
@@ -537,14 +524,6 @@
     seen.unobserve(e.target);
   }), {threshold: 1});
   document.querySelectorAll("[data-hiscore]").forEach(el => seen.observe(el));
-
-  // 経歴文のコピー
-  document.getElementById("copybtn").addEventListener("click", async () => {
-    try { await navigator.clipboard.writeText(document.getElementById("cvtext").innerText.trim()); }
-    catch (e) { const r = document.createRange(); r.selectNodeContents(document.getElementById("cvtext"));
-      const s = getSelection(); s.removeAllRanges(); s.addRange(r); document.execCommand("copy"); }
-    const c = document.getElementById("copied"); c.style.opacity = 1; setTimeout(() => c.style.opacity = 0, 1400);
-  });
 
   // 隠し: ↑↑↓↓←→←→BA でブロックが降る
   const code = ["ArrowUp","ArrowUp","ArrowDown","ArrowDown","ArrowLeft","ArrowRight","ArrowLeft","ArrowRight","b","a"];
