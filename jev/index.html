@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>TypeSafe AI「Jev」でゲームを5本動かした記録 — tobisako</title>
-<meta name="description" content="TypeSafe AI の System One モデル Jev（構造化意思決定モデル）に判定を任せ、ヘビ・フラッピーバード・ミニマリオ・テトリス2D・テトリス3Dを動かした記録と録画。">
-<meta property="og:title" content="TypeSafe AI「Jev」でゲームを5本動かした記録">
-<meta property="og:description" content="Jev とゲームのコードで判定を分担し、ゲームを5本動かしたデモ。盤面は state にまとめ、Jev に渡す選択肢には合法手だけを並べ、物理演算と衝突判定はゲームのコードが処理する。">
+<title>TypeSafe AI「Jev」にゲームを5本プレイさせた記録 — tobisako</title>
+<meta name="description" content="TypeSafe AI の意思決定モデル Jev に、盤面を JSON で渡して、ヘビ・フラッピーバード・ミニマリオ・テトリス2D・テトリス3Dをプレイさせた記録と録画。">
+<meta property="og:title" content="TypeSafe AI「Jev」にゲームを5本プレイさせた記録">
+<meta property="og:description" content="TypeSafe AI の意思決定モデル Jev に、ゲームを5本プレイさせたデモ。進む向き・ジャンプ・ミノの置き場所などを Jev が選び、候補はプログラムが合法手から先読みで絞る。テトリス3Dでは101個中92個が Jev の選んだ場所に置かれた。">
 <meta property="og:image" content="https://tobisako.github.io/cv/jev/img/hero.jpg">
 <meta property="og:type" content="article">
 <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
@@ -215,7 +215,7 @@
     <div class="kicker arcade">SYSTEM ONE × 5 GAMES</div>
     <h1 class="dot">TypeSafe AI「Jev」<small>System One モデル／構造化意思決定モデル</small></h1>
     <div class="en mono">TypeSafe AI Jev — System One evaluation model (typed decisions: Choice / Score / Boolean)</div>
-    <p class="lead">Jev とゲームのコードで判定を分担して、ゲームを5本動かしました。盤面は state にまとめ、Jev に渡す選択肢には合法手だけを並べます。将棋・囲碁・チェスでは「ルール上打てる手」を合法手と呼びます。物理演算と衝突判定はゲームのコードが処理します。このページには、そのつくりと録画をまとめました。</p>
+    <p class="lead">TypeSafe AI の意思決定モデル Jev に、ゲームを5本プレイさせました。進む向き、はばたくタイミング、ジャンプ、ミノの置き場所を Jev が選びます。渡すのは画面の画像ではなく、盤面をまとめた JSON と、プログラムが合法手から先読みで絞り込んだ候補です。将棋・囲碁・チェスでは「ルール上打てる手」を合法手と呼びます。テトリス3Dでは、101個のミノのうち92個が Jev の選んだ場所に置かれました。</p>
 
     <div class="hero-grid">
       <img class="hero-img" src="img/hero.jpg" alt="3枚の札（選択肢・メーター・チェック）を上げた判定係のロボットと、ヘビ・鳥・ペンギン・落ちものブロック・3Dの塔が映る5台のゲーム画面" width="1200" height="676">
