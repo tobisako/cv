@@ -238,7 +238,7 @@
   <section id="about">
     <h2>Jev とは <span class="tag">ABOUT</span></h2>
     <div class="body">
-      <p>Jev は、TypeSafe AI が 2026 年に公開した意思決定モデルです。入力は会話履歴ではなく、プログラムが渡す state（状況）と、型のついた questions（判定項目）です。出力は文章ではなく、選択の結果・スコア・真である確率で、コードはその値で分岐します。</p>
+      <p>Jev は、TypeSafe AI が 2026年9月15日に公開した意思決定モデルです。入力は会話履歴ではなく、プログラムが渡す state（状況）と、型のついた questions（判定項目）です。出力は文章ではなく、選択の結果・スコア・真である確率で、コードはその値で分岐します。</p>
       <p>ChatGPT 系は、トークンを順に生成する対話・作文のモデルです。Jev は、同じ state に対する複数の判定をまとめて返し、その値をソフトウェアがそのまま使います。公式ブログはこれを「<span class="mono">unstructured state in, typed probabilistic decisions out</span>」と書いています。<a class="src" href="https://typesafe.ai/blog/introducing-system-one-models-and-jev" target="_blank" rel="noopener">[1]</a> Jev を置くのは、エージェントやゲームループの中で次の一手を決める層です。</p>
       <p>Vercel AI Gateway でのモデル名は <code>typesafe-ai/jev</code> で、チャット API ではなく、AI SDK の evaluate から呼び出します。<a class="src" href="https://vercel.com/docs/ai-gateway/modalities/evaluation" target="_blank" rel="noopener">[4]</a> 判定の種類は3つで、AI SDK の型名では Choice（並べた候補から1つ選ぶ）、Score（段階で評価する）、Boolean（真である確率）です。Boolean は、TypeSafe AI のドキュメントでは Noul と呼ばれています。<a class="src" href="https://docs.typesafe.ai/concepts/system-one" target="_blank" rel="noopener">[2]</a></p>
     </div>
