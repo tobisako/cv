@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AI-DLC × Kiro でナレッジRAGの PoC を作り、実行時間を縮める設定を試した記録 — tobisako</title>
-<meta name="description" content="AWS の AI-DLC を Kiro で動かし、退職者の知識を引き継ぐナレッジRAGの PoC を作った記録。ワークフロープロファイルを classic から express に替え、確認や承認を減らす設定を入れた手順を、録画とスクリーンショットで説明します。">
-<meta property="og:title" content="AI-DLC × Kiro でナレッジRAGの PoC を作り、実行時間を縮める設定を試した記録">
-<meta property="og:description" content="classic では56分たってもコードを作る前だった PoC が、express と設定の見直しで約26分で動いた。その設定手順を録画つきで説明します。">
+<title>AI-DLC × Kiro：実行時間を縮める設定の手順 — tobisako</title>
+<meta name="description" content="Kiro で AWS の AI-DLC を使うとき、実行時間を縮める設定の手順。ワークフロープロファイルを express に替える、確認と承認を減らす、データを絞る、コマンドの許可を減らす、を録画とスクリーンショットで1つずつ説明します。">
+<meta property="og:title" content="AI-DLC × Kiro：実行時間を縮める設定の手順">
+<meta property="og:description" content="Kiro で AI-DLC を使うときに実行時間を縮める設定を、録画つきで1つずつ説明します。題材は架空企業のナレッジRAGの PoC。">
 <meta property="og:image" content="https://tobisako.github.io/cv/aidlc-kiro/media/demo-q3.jpg">
 <meta property="og:type" content="article">
 <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
@@ -73,7 +73,7 @@
   .note{margin-top:12px;font-size:14.5px;color:var(--dim)}
   code{background:#05061a;color:var(--lime);padding:1px 6px;border-radius:4px;font-size:.9em;border:1px solid #1d2156}
   pre{margin-top:12px;background:#05061a;border:1px solid var(--line);border-radius:8px;padding:12px 14px;
-    overflow-x:auto;font-family:"JetBrains Mono",monospace;font-size:13.5px;line-height:1.7;color:var(--lime)}
+    overflow-x:auto;font-family:"JetBrains Mono",monospace;font-size:13.5px;line-height:1.7;color:var(--lime);white-space:pre-wrap;word-break:break-word}
   pre .c{color:var(--dim)}
 
   /* 動画の枠 */
@@ -132,22 +132,16 @@
 
   <header class="hero">
     <div class="kicker orb">AI-DLC v2.11.5 / KIRO / OLLAMA</div>
-    <h1>AI-DLC × Kiro でナレッジRAGの PoC を作り、実行時間を縮める設定を試した記録
-      <small>classic から express へ。確認と承認を減らす設定を、録画つきで1つずつ説明します</small></h1>
-    <p class="lead">AWS の開発手法 <b>AI-DLC</b>（AI-Driven Development Life Cycle）を Kiro で動かし、架空企業【ベテランの退職に備える「ナレッジRAGお助けシステム」】の PoC を作りました。初めは既定のワークフロープロファイル <code>classic</code> で始め、56分たってもまだコードを作る前でした。そこで <code>express</code> に替え、確認と承認を減らす設定を入れて作り直したところ、約26分で PoC が動きました。このページでは、まずできたアプリを動画で見せ、そのあと、入れた設定を1つずつ手順で説明します。</p>
-    <div class="stats">
-      <div class="stat"><div class="n">56<small>分</small></div><div class="t">classic で進めた時間。それでもコード生成の前（14ステージ中8ステージ＋1つ目の部品の設計）</div></div>
-      <div class="stat"><div class="n">約26<small>分</small></div><div class="t">express で開始から PoC が動くまで（設定を入れていた待ち時間を含む）</div></div>
-      <div class="stat"><div class="n">31→3<small>件</small></div><div class="t">人が答えた質問の数（classic → express）</div></div>
-      <div class="stat"><div class="n">13<small>本</small></div><div class="t">設定手順の録画。ほかにアプリの動作の録画6本</div></div>
-    </div>
+    <h1>AI-DLC × Kiro：実行時間を縮める設定の手順
+      <small>ワークフロープロファイル・確認と承認・データ・コマンドの許可を、録画つきで1つずつ説明します</small></h1>
+    <p class="lead">AWS の開発手法 <b>AI-DLC</b>（AI-Driven Development Life Cycle）は、既定のままだと AI からの質問と承認ゲートが多く、作り終えるまでに時間がかかります。このページでは、Kiro で AI-DLC を使うときに実行時間を縮める設定を、手順ごとに録画とスクリーンショットで説明します。題材は、架空企業【ベテランの退職に備える「ナレッジRAGお助けシステム」】の PoC です。まず、できたアプリを動画で見せます。</p>
     <nav class="toc">
       <a href="#app">1. できたアプリ</a>
-      <a href="#measure">2. classic と express の比較</a>
-      <a href="#switch">3. 高速化設定：classic から express に替える</a>
-      <a href="#settings">4. 高速化設定：確認と承認を減らす</a>
-      <a href="#data">5. 高速化設定：データを絞る</a>
-      <a href="#allow">6. 高速化設定：コマンドの許可を減らす</a>
+      <a href="#switch">2. 高速化設定：プロファイルを express に替える</a>
+      <a href="#settings">3. 高速化設定：確認と承認を減らす</a>
+      <a href="#data">4. 高速化設定：データを絞る</a>
+      <a href="#allow">5. 高速化設定：コマンドの許可を減らす</a>
+      <a href="#measure">6. 参考：効果の目安</a>
       <a href="#env">7. 環境と出典</a>
     </nav>
   </header>
@@ -188,39 +182,15 @@
   </section>
 
   <!-- ===================== 2 ===================== -->
-  <section id="measure">
-    <h2>2. classic と express の比較<span class="tag">MEASURE</span></h2>
-    <div class="body"><p>同じ依頼文で、ワークフロープロファイルだけを替えて2回作りました。人の答え方は「質問には推奨の選択肢を選ぶ」「承認ゲートはすぐ承認する」にそろえています。</p></div>
-    <table>
-      <thead><tr><th></th><th>classic（既定）</th><th>express</th></tr></thead>
-      <tbody>
-        <tr><th>ステージの数</th><td>14（Unit ごとにさらに設計を繰り返す）</td><td class="hl">6</td></tr>
-        <tr><th>深さ・テスト方針</th><td>Standard</td><td class="hl">Minimal</td></tr>
-        <tr><th>経過</th><td>56分で中止。要件・ユーザーストーリー・画面・ドメイン・Unit 分割（6つ）・契約・デリバリー計画を終え、1つ目の Unit の設計が済んだところ。コードはまだ無い</td><td class="hl">約26分で PoC が動いた（要件分析のあと、計画の承認なしでコード生成とテストまで進んだ）</td></tr>
-        <tr><th>人が答えた質問</th><td>31件（9回に分けて）</td><td class="hl">3件（1回）</td></tr>
-        <tr><th>承認ゲート</th><td>11回（中止までに）</td><td class="hl">1回</td></tr>
-      </tbody>
-    </table>
-    <div class="warn"><b>比べるときの注意。</b>express の約26分には、設定を入れるために止めていた約5分と、許可の出し方を相談していた数分が入っています。また express にだけ「データを絞る」指示と、途中からの Always allow を入れています。この差は、プロファイルだけの差ではありません。</div>
-  </section>
-
-  <!-- ===================== 3 ===================== -->
   <section id="switch">
-    <h2>3. 高速化設定：classic から express に替える<span class="tag">SWITCH</span></h2>
+    <h2>2. 高速化設定：プロファイルを express に替える<span class="tag">PROFILE</span></h2>
     <div class="body">
-      <p>ワークフロープロファイルの変え方は2つあります。今回は「最初から作り直して比べる」ので、2つ目の方法をとりました。</p>
-      <p>・途中で替える: <code>/aidlc --scope express</code>。済んだステージは残し、残りを express の計画に組み替えます。<br>
-         ・新しく始める: <code>/aidlc --scope express &lt;作りたいもの&gt;</code>。最初から express で進めます。</p>
+      <p>ワークフロープロファイルは、通すステージの数と承認ゲートの数を決めます。既定の <code>classic</code> は14ステージで、作る部品（Unit）ごとに設計をくり返します。<code>express</code> は6ステージで、深さとテスト方針も最初から Minimal です。</p>
     </div>
 
-    <div class="step"><div class="no">STEP 1</div><h3>classic の実行を取り消す</h3>
-      <ol><li>Kiro のチャット欄の右下にある <b>Cancel</b> を押します。</li>
-        <li>作ったファイルは消えません。実行だけが止まります。</li></ol>
-      <div class="screen"><video src="media/c01.mp4" poster="media/c01.jpg" class="pv" autoplay muted loop playsinline preload="metadata"></video></div></div>
-
-    <div class="step"><div class="no">STEP 2</div><h3>いまのプロファイルをターミナルで確かめる</h3>
+    <div class="step"><div class="no">STEP 1</div><h3>いまのプロファイルを確かめる</h3>
       <ol><li>上部の「パネルの切り替え」でターミナル欄を開き、右上の「+」で新しいターミナルを開きます。</li>
-        <li><code>aidlc config list</code> を実行します。各行の「(from scope classic)」で、いまのプロファイルが classic だと分かります。</li></ol>
+        <li><code>aidlc config list</code> を実行します。各行の「(from scope ○○)」の ○○ が、いまのプロファイルです。</li></ol>
       <pre>$ aidlc config list
 depth: Standard
 test-strategy: Standard
@@ -230,35 +200,31 @@ learnings: on <span class="c">(from scope classic)</span>
 plan-approval: on <span class="c">(from scope classic)</span>
 …</pre>
       <div class="two"><div class="screen"><video src="media/c02.mp4" poster="media/c02.jpg" class="pv" autoplay muted loop playsinline preload="metadata"></video></div>
-        <div class="screen"><img src="media/s04.jpg" alt="aidlc config list で classic を確かめた画面" loading="lazy"></div></div></div>
+        <div class="screen"><img src="media/s04.jpg" alt="aidlc config list でいまのプロファイルを確かめた画面" loading="lazy"></div></div></div>
 
-    <div class="step"><div class="no">STEP 3</div><h3>classic の途中経過を git のブランチに残す</h3>
-      <ol><li>あとで続きをやれるように、classic の成果物をブランチに残してから、main を最初の状態に戻します。</li>
-        <li>git が無視するローカルの作業状態（いま有効な作業を指す <code>active-intent</code> など）も別の場所へ退避します。残っていると、express を始めたときに「既存の作業の続きか」を聞かれ、質問が1つ増えます。</li></ol>
-      <pre>git switch -c classic-途中 &amp;&amp; git add -A &amp;&amp; git commit -m "classic の途中経過" &amp;&amp; git switch main
-mkdir -p ../退避 &amp;&amp; mv aidlc/spaces/default/intents aidlc/.aidlc-sessions aidlc/active-memory ../退避/</pre>
-      <div class="two"><div class="screen"><video src="media/c03.mp4" poster="media/c03.jpg" class="pv" autoplay muted loop playsinline preload="metadata"></video></div>
-        <div class="screen"><img src="media/s05.jpg" alt="classic をブランチに残した画面" loading="lazy"></div></div></div>
-
-    <div class="step"><div class="no">STEP 4</div><h3>新しいチャットで aidlc エージェントを選ぶ</h3>
+    <div class="step"><div class="no">STEP 2</div><h3>チャットで aidlc エージェントを選ぶ</h3>
       <ol><li>チャット欄の右上の「+」（New session）で新しいチャットを開きます。</li>
-        <li>入力欄の右下の「Default」を押し、WORKSPACE にある <b>aidlc</b> を選びます。新しいチャットは毎回 Default から始まるので、毎回選びます。</li></ol>
+        <li>入力欄の右下の「Default」を押し、WORKSPACE にある <b>aidlc</b> を選びます。</li>
+        <li>新しいチャットは毎回 Default から始まるので、そのたびに選びます。</li></ol>
       <div class="two"><div class="screen"><video src="media/c04.mp4" poster="media/c04.jpg" class="pv" autoplay muted loop playsinline preload="metadata"></video></div>
         <div class="screen"><img src="media/s08.jpg" alt="aidlc エージェントを選んだ画面" loading="lazy"></div></div></div>
 
-    <div class="step"><div class="no">STEP 5</div><h3>express で依頼を送る</h3>
-      <ol><li>入力欄に <code>/aidlc --scope express &lt;作りたいもの&gt;</code> を書いて Enter で送ります。classic と同じ文で、<code>--scope</code> の後ろだけを替えました。</li>
-        <li>依頼文には、技術の条件（Python・依存は最小限・BM25・Ollama・ローカルで動けばよい）を最初から書いておきます。条件があいまいだと、それを聞く質問が増えるからです。</li></ol>
+    <div class="step"><div class="no">STEP 3</div><h3>express を指定して始める</h3>
+      <ol><li>入力欄に <code>/aidlc --scope express &lt;作りたいもの&gt;</code> を書いて、Enter で送ります。</li>
+        <li>最初の返答に、express の計画（ステージの数と承認ゲートの数）が出ます。</li>
+        <li>作りたいものには、範囲と技術の条件を最初から書いておきます（例: Python・依存は最小限・検索は BM25・ローカルの Ollama・ローカルで動けばよい）。条件があいまいだと、それを聞く質問が増えます。</li></ol>
+      <pre>/aidlc --scope express 架空の開発会社の社内文書（data/ の Markdown）を読み込み、後任者の質問に、根拠の文書名つきで日本語で答える Web アプリの PoC を作る。Python で依存は最小限、検索は文字 n-gram の BM25、回答の生成はローカルの Ollama（gemma3:4b）。</pre>
       <div class="two"><div class="screen"><video src="media/c05.mp4" poster="media/c05.jpg" class="pv" autoplay muted loop playsinline preload="metadata"></video></div>
-        <div class="screen"><img src="media/s09.jpg" alt="express の依頼文を入力した画面" loading="lazy"></div></div>
+        <div class="screen"><img src="media/s09.jpg" alt="express を指定して依頼を入力した画面" loading="lazy"></div></div>
       <p class="note">送ったあとの最初の返答（express の計画）:</p>
-      <div class="screen"><video src="media/c06.mp4" poster="media/c06.jpg" class="pv" autoplay muted loop playsinline preload="metadata"></video></div></div>
+      <div class="screen"><video src="media/c06.mp4" poster="media/c06.jpg" class="pv" autoplay muted loop playsinline preload="metadata"></video></div>
+      <div class="warn"><b>作業の途中で替えるとき。</b>すでに classic で進めている作業は、チャットに <code>/aidlc --scope express</code> とだけ送ると express に切り替わります。済んだステージと承認はそのまま残り、残りのステージが express の計画に組み替わります。</div></div>
   </section>
 
-  <!-- ===================== 4 ===================== -->
+  <!-- ===================== 3 ===================== -->
   <section id="settings">
-    <h2>4. 高速化設定：確認と承認を減らす<span class="tag">CEREMONY</span></h2>
-    <div class="body"><p>AI-DLC には、ステージの途中で人に確認させる仕組みが、プロファイルとは別の設定として用意されています。express は、そのほとんどを最初から止めています。ここでは、それを確かめたうえで、1つずつはっきり指定しました。</p></div>
+    <h2>3. 高速化設定：確認と承認を減らす<span class="tag">CEREMONY</span></h2>
+    <div class="body"><p>AI-DLC には、ステージの途中で人に確認させる仕組みが、プロファイルとは別の設定として用意されています。express を選ぶと、ほとんどが最初から止まっています。classic など別のプロファイルで使うときや、1つずつ変えたいときは、次の手順で指定します。</p></div>
     <table>
       <thead><tr><th>設定</th><th>止まる場面</th><th>指定の仕方</th><th>express の既定</th></tr></thead>
       <tbody>
@@ -273,61 +239,74 @@ mkdir -p ../退避 &amp;&amp; mv aidlc/spaces/default/intents aidlc/.aidlc-sessi
       </tbody>
     </table>
 
-    <div class="step"><div class="no">STEP 6</div><h3>適用前の設定を一覧で見る</h3>
-      <ol><li>ターミナルで <code>aidlc config list</code> を実行します。express では、ほとんどが最初から off か Minimal で、出どころは「(from scope express)」です。</li></ol>
+    <div class="step"><div class="no">STEP 4</div><h3>いまの設定を一覧で見る</h3>
+      <ol><li>ターミナルで <code>aidlc config list</code> を実行します。</li>
+        <li>値の横の「(from scope ○○)」は、プロファイルから来た値という意味です。</li></ol>
       <div class="screen"><video src="media/c07.mp4" poster="media/c07.jpg" class="pv" autoplay muted loop playsinline preload="metadata"></video></div></div>
 
-    <div class="step"><div class="no">STEP 7</div><h3>ターミナルから深さ・テスト方針・レビューを指定する</h3>
+    <div class="step"><div class="no">STEP 5</div><h3>ターミナルで深さ・テスト方針・レビューを変える</h3>
       <ol><li><code>aidlc engine config set &lt;設定&gt; &lt;値&gt; 2&gt;&amp;1</code> を実行します。</li>
         <li>結果の文は標準エラーに出るので、<code>2&gt;&amp;1</code> を付けないと何も表示されません。</li>
-        <li>すでに同じ値なら「Depth is already Minimal」「Specialist reviews are already off for this work.」のように返ります。</li></ol>
+        <li>すでに同じ値なら「Depth is already Minimal」のように返ります。</li></ol>
       <pre>aidlc engine config set depth minimal 2&gt;&amp;1
 aidlc engine config set test-strategy minimal 2&gt;&amp;1
 aidlc engine config set review none 2&gt;&amp;1</pre>
       <div class="two"><div class="screen"><video src="media/c08.mp4" poster="media/c08.jpg" class="pv" autoplay muted loop playsinline preload="metadata"></video></div>
         <div class="screen"><img src="media/s13.jpg" alt="ターミナルで深さとレビューを指定した結果" loading="lazy"></div></div></div>
 
-    <div class="step"><div class="no">STEP 8</div><h3>確認を減らす設定は、ターミナルからは入れられない</h3>
-      <ol><li><code>aidlc engine config set summary-confirmation off</code> をターミナルで実行すると、拒否されます。</li>
-        <li>エラーの内容は「本人がチャットで頼んだ場合だけ止められる。Kiro のチャットで頼むこと」です。要約の確認・コード計画の承認・Guard Policy のように、確認を減らす方向の設定は、人が自分で頼んだことを AI-DLC が確かめる作りになっています。</li></ol>
-      <div class="two"><div class="screen"><video src="media/c09.mp4" poster="media/c09.jpg" class="pv" autoplay muted loop playsinline preload="metadata"></video></div>
-        <div class="screen"><img src="media/s15.jpg" alt="ターミナルからは拒否された画面" loading="lazy"></div></div></div>
-
-    <div class="step"><div class="no">STEP 9</div><h3>チャットで設定をまとめて頼む</h3>
-      <ol><li>Kiro のチャットに、<code>/aidlc config set</code> で始めて設定を並べた1通を送ります。</li>
-        <li>返答で、各設定の出どころが「(from scope express)」から「(set by you)」に変わったことが分かります。</li></ol>
+    <div class="step"><div class="no">STEP 6</div><h3>確認を止める設定は、チャットで頼む</h3>
+      <ol><li>Kiro のチャットに、<code>/aidlc config set</code> で始めて、変えたい設定を並べた1通を送ります。</li>
+        <li>返答で、各設定の出どころが「(set by you)」に変わったことが分かります。</li></ol>
       <pre>/aidlc config set summary-confirmation off --plan-approval off --learnings off --sensors off --guard-policy off --review none --depth minimal --test-strategy minimal</pre>
       <div class="screen"><video src="media/c10.mp4" poster="media/c10.jpg" class="pv" autoplay muted loop playsinline preload="metadata"></video></div>
       <div class="two"><div class="screen"><img src="media/s16.jpg" alt="チャットに設定を入力した画面" loading="lazy"></div>
-        <div class="screen"><img src="media/s17.jpg" alt="チャットで設定が通った画面" loading="lazy"></div></div></div>
+        <div class="screen"><img src="media/s17.jpg" alt="チャットで設定が通った画面" loading="lazy"></div></div>
+      <div class="warn"><b>ターミナルからは変えられません。</b>要約の確認・コード計画の承認・Guard Policy のように確認を減らす設定は、ターミナルの <code>aidlc engine config set</code> では拒否され、「Kiro のチャットで頼むこと」と返ります。人が自分で頼んだことを AI-DLC が確かめる作りです。</div>
+      <div class="screen" style="max-width:640px"><img src="media/s15.jpg" alt="ターミナルからは拒否された画面" loading="lazy"></div></div>
 
-    <div class="step"><div class="no">STEP 10</div><h3>適用後の設定を一覧で確かめる</h3>
+    <div class="step"><div class="no">STEP 7</div><h3>変わったことを一覧で確かめる</h3>
       <ol><li>もう一度 <code>aidlc config list</code> を実行し、出どころが「(set by you)」になったことを確かめます。</li></ol>
       <div class="two"><div class="screen"><video src="media/c11.mp4" poster="media/c11.jpg" class="pv" autoplay muted loop playsinline preload="metadata"></video></div>
-        <div class="screen"><img src="media/s18.jpg" alt="適用後の設定一覧" loading="lazy"></div></div></div>
+        <div class="screen"><img src="media/s18.jpg" alt="変更後の設定一覧" loading="lazy"></div></div></div>
   </section>
 
-  <!-- ===================== 5 ===================== -->
+  <!-- ===================== 4 ===================== -->
   <section id="data">
-    <h2>5. 高速化設定：データを絞る<span class="tag">DATA</span></h2>
-    <div class="step"><div class="no">STEP 11</div><h3>最初は数本の文書で一通り動かす</h3>
+    <h2>4. 高速化設定：データを絞る<span class="tag">DATA</span></h2>
+    <div class="step"><div class="no">STEP 8</div><h3>最初は数本の文書で一通り動かすよう伝える</h3>
       <ol><li>文書が多いと、全部読むか、索引をどう作るかを AI が聞きやすく、処理も重くなります。</li>
-        <li>要件の質問に答えるときに、「まず 11_引き継ぎ と 05_仕様書 の数本で一通り動かし、動いたら全体に広げる」と添えました。</li>
-        <li>Kiro は実際に、絞ったデータでサーバーを立てて動作を確かめてから、全データでの検索の具合を確かめていました。</li></ol>
+        <li>依頼文か、要件の質問への回答に、「まず数本で一通り動かし、動いたら全体に広げる」と書き添えます。</li></ol>
+      <pre>データを絞って進める：開発と動作確認は、まず data/11_引き継ぎ と data/05_仕様書 の数本だけで一通り動かし、動いたら data/ 全体に広げる。</pre>
       <div class="two"><div class="screen"><video src="media/c12.mp4" poster="media/c12.jpg" class="pv" autoplay muted loop playsinline preload="metadata"></video></div>
         <div class="screen"><img src="media/s19.jpg" alt="データを絞る指示を入力した画面" loading="lazy"></div></div></div>
   </section>
 
-  <!-- ===================== 6 ===================== -->
+  <!-- ===================== 5 ===================== -->
   <section id="allow">
-    <h2>6. 高速化設定：コマンドの許可を減らす<span class="tag">ALLOW</span></h2>
-    <div class="step"><div class="no">STEP 12</div><h3>Always allow で、同じ形のコマンドを次から聞かせない</h3>
+    <h2>5. 高速化設定：コマンドの許可を減らす<span class="tag">ALLOW</span></h2>
+    <div class="step"><div class="no">STEP 9</div><h3>Always allow で、同じ形のコマンドを次から聞かせない</h3>
       <ol><li>Kiro は、エージェントがコマンドを動かすたびに許可を求めます。ファイルを読むだけのコマンドでも止まります。</li>
-        <li>許可のカードで <b>Always allow</b> を押すと、覚えるパターン（例: <code>python3 *</code>）と範囲（This workspace＝このフォルダだけ）を選ぶ欄が出ます。確かめて確定します。</li>
+        <li>許可のカードで <b>Always allow</b> を押すと、覚えるパターン（例: <code>python3 *</code>）と範囲（This workspace＝このフォルダだけ）を選ぶ欄が出ます。確かめて、もう一度 Always allow で確定します。</li>
         <li><code>a &amp;&amp; b &amp;&amp; c</code> のようにつないだコマンドは、部分ごとに聞かれます。</li></ol>
       <div class="two"><div class="screen"><video src="media/c13.mp4" poster="media/c13.jpg" class="pv" autoplay muted loop playsinline preload="metadata"></video></div>
         <div class="screen"><img src="media/s21.jpg" alt="Always allow の範囲を選ぶ画面" loading="lazy"></div></div>
-      <div class="warn"><b>注意。</b>Always allow は、そのパターンのコマンドを黙って実行させる設定です。外と通信する <code>curl</code> などは、毎回の Allow のままにしました。</div></div>
+      <div class="warn"><b>注意。</b>Always allow は、そのパターンのコマンドを黙って実行させる設定です。外と通信する <code>curl</code> のようなコマンドは、毎回の Allow のままにするほうが安全です。</div></div>
+  </section>
+
+  <!-- ===================== 6 ===================== -->
+  <section id="measure">
+    <h2>6. 参考：効果の目安<span class="tag">MEASURE</span></h2>
+    <div class="body"><p>同じ PoC を、classic と、express に上の設定を入れた状態とで作りました。人の答え方は「質問には推奨の選択肢を選ぶ」「承認ゲートはすぐ承認する」にそろえています。</p></div>
+    <table>
+      <thead><tr><th></th><th>classic（既定）</th><th>express＋上の設定</th></tr></thead>
+      <tbody>
+        <tr><th>ステージの数</th><td>14（Unit ごとにさらに設計をくり返す）</td><td class="hl">6</td></tr>
+        <tr><th>経過</th><td>56分で中止。1つ目の Unit の設計が済んだところで、コードはまだ無い</td><td class="hl">約26分で PoC が動いた</td></tr>
+        <tr><th>人が答えた質問</th><td>31件</td><td class="hl">3件</td></tr>
+        <tr><th>承認ゲート</th><td>11回（中止までに）</td><td class="hl">1回</td></tr>
+      </tbody>
+    </table>
+    <p class="note">express の約26分には、設定を入れるために止めていた時間（約5分）も入っています。また、データを絞る指示と Always allow は express のときだけ入れたので、この差はプロファイルだけの差ではありません。</p>
   </section>
 
   <!-- ===================== 7 ===================== -->
