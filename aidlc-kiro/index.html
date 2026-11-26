@@ -111,6 +111,19 @@
   .warn b{color:var(--amber)}
 
   footer{margin-top:60px;border-top:1px solid var(--line);padding:22px 0 40px;font-size:13px;color:var(--dim)}
+
+  /* 小さい動画はアニメGIFのように流しておき、押すと大きく開いて最初から再生する */
+  .screen{position:relative;cursor:zoom-in}
+  .screen .hint{position:absolute;right:10px;bottom:10px;background:#05061acc;color:var(--cyan);
+    border:1px solid var(--cyan);border-radius:999px;padding:3px 11px;font-size:12px;pointer-events:none;
+    font-family:"JetBrains Mono",monospace;box-shadow:0 0 10px #3ff0ff55}
+  .lb{position:fixed;inset:0;z-index:50;display:none;align-items:center;justify-content:center;
+    background:#03041aee;backdrop-filter:blur(3px);padding:3vh 3vw;cursor:zoom-out}
+  .lb.on{display:flex}
+  .lb video,.lb img{max-width:96vw;max-height:88vh;border:1px solid var(--cyan);border-radius:10px;
+    box-shadow:0 0 40px #3ff0ff55;background:#000;cursor:default}
+  .lb .x{position:absolute;top:14px;right:20px;color:#fff;font-size:30px;line-height:1;background:none;border:0;cursor:pointer}
+  .lb .lbcap{position:absolute;bottom:12px;left:0;right:0;text-align:center;color:var(--dim);font-size:13px}
 </style>
 </head>
 <body>
@@ -146,7 +159,7 @@
       <p>後任者が質問すると、社内文書から関係する箇所を探し、根拠にした文書名と抜粋をつけて日本語で答えます。文書は、架空の開発会社が持っている設計書・運用記録・議事録・引き継ぎメモなど約190本です（すべて架空のダミー資料です）。</p>
       <p>検索は Python の標準ライブラリだけで書いた文字 n-gram の BM25、回答の文章は同じ Mac で動く Ollama の <code>gemma3:4b</code> が作ります。外部の API もキーも使いません。画面のデザイン（暗い背景にネオン色）も、要件の質問に答えるときに Kiro に頼みました。</p>
     </div>
-    <div class="screen"><video src="media/demo-all.mp4" poster="media/demo-q1.jpg" controls muted playsinline preload="metadata"></video></div>
+    <div class="screen"><video src="media/demo-all.mp4" poster="media/demo-q1.jpg" class="pv" autoplay muted loop playsinline preload="metadata"></video></div>
     <p class="cap">5問を続けて質問した録画（54秒）。質問を打つ、「質問する」を押す、回答が出る、根拠までスクロールする、の順です。</p>
 
     <h3>よい回答が返った5問</h3>
@@ -154,19 +167,19 @@
     <div class="qs">
       <div class="q"><div class="qt"><b>Q1</b>検索の重み付けはなぜDBマスタで持っているの？</div>
         <div class="qa">「並び順をあとから変えたい」という2016年の方針と、「コードに書くとリリースが要る」という引き継ぎメモの説明を、理由として挙げました。</div>
-        <div class="screen"><video src="media/demo-q1.mp4" poster="media/demo-q1.jpg" controls muted playsinline preload="none"></video></div></div>
+        <div class="screen"><video src="media/demo-q1.mp4" poster="media/demo-q1.jpg" class="pv" autoplay muted loop playsinline preload="metadata"></video></div></div>
       <div class="q"><div class="qt"><b>Q2</b>地図検索を採用するかどうかは、どう決まった？</div>
         <div class="qa">2020年の会議で保留にした理由を、議事録から3点（開発の手が足りない、重み付けが決まっておらず苦情の恐れがある、加盟店のニーズが分からない）で答えました。</div>
-        <div class="screen"><video src="media/demo-q2.mp4" poster="media/demo-q2.jpg" controls muted playsinline preload="none"></video></div></div>
+        <div class="screen"><video src="media/demo-q2.mp4" poster="media/demo-q2.jpg" class="pv" autoplay muted loop playsinline preload="metadata"></video></div></div>
       <div class="q"><div class="qt"><b>Q3</b>加盟店から検索順位の苦情が来たら、どう答えればいい？</div>
         <div class="qa">「触ってはいけない設定」「憶測で答えない」「15分で答えられなければ上げる」など、後任が困る点を挙げました。</div>
-        <div class="screen"><video src="media/demo-q3.mp4" poster="media/demo-q3.jpg" controls muted playsinline preload="none"></video></div></div>
+        <div class="screen"><video src="media/demo-q3.mp4" poster="media/demo-q3.jpg" class="pv" autoplay muted loop playsinline preload="metadata"></video></div></div>
       <div class="q"><div class="qt"><b>Q4</b>お断りした要望にはどんなものがある？</div>
         <div class="qa">「お断りした要望の記録」にある4件を、そのまま挙げました。</div>
-        <div class="screen"><video src="media/demo-q4.mp4" poster="media/demo-q4.jpg" controls muted playsinline preload="none"></video></div></div>
+        <div class="screen"><video src="media/demo-q4.mp4" poster="media/demo-q4.jpg" class="pv" autoplay muted loop playsinline preload="metadata"></video></div></div>
       <div class="q"><div class="qt"><b>Q5</b>反響メールが届かないときの調べ方は？</div>
         <div class="qa">通知先の確認から送信統計の確認まで、調べる順番を5段階で、根拠の番号つきで答えました。</div>
-        <div class="screen"><video src="media/demo-q5.mp4" poster="media/demo-q5.jpg" controls muted playsinline preload="none"></video></div></div>
+        <div class="screen"><video src="media/demo-q5.mp4" poster="media/demo-q5.jpg" class="pv" autoplay muted loop playsinline preload="metadata"></video></div></div>
       <div class="q"><div class="qt"><b>画面</b>トップ</div>
         <div class="qa">入力欄と「質問する」ボタンだけの1画面です。</div>
         <div class="screen"><img src="media/demo-top.jpg" alt="ナレッジRAGお助けシステムのトップ画面" loading="lazy"></div></div>
@@ -203,7 +216,7 @@
     <div class="step"><div class="no">STEP 1</div><h3>classic の実行を取り消す</h3>
       <ol><li>Kiro のチャット欄の右下にある <b>Cancel</b> を押します。</li>
         <li>作ったファイルは消えません。実行だけが止まります。</li></ol>
-      <div class="screen"><video src="media/c01.mp4" poster="media/c01.jpg" controls muted playsinline preload="none"></video></div></div>
+      <div class="screen"><video src="media/c01.mp4" poster="media/c01.jpg" class="pv" autoplay muted loop playsinline preload="metadata"></video></div></div>
 
     <div class="step"><div class="no">STEP 2</div><h3>いまのプロファイルをターミナルで確かめる</h3>
       <ol><li>上部の「パネルの切り替え」でターミナル欄を開き、右上の「+」で新しいターミナルを開きます。</li>
@@ -216,7 +229,7 @@ sensors: on <span class="c">(from scope classic)</span>
 learnings: on <span class="c">(from scope classic)</span>
 plan-approval: on <span class="c">(from scope classic)</span>
 …</pre>
-      <div class="two"><div class="screen"><video src="media/c02.mp4" poster="media/c02.jpg" controls muted playsinline preload="none"></video></div>
+      <div class="two"><div class="screen"><video src="media/c02.mp4" poster="media/c02.jpg" class="pv" autoplay muted loop playsinline preload="metadata"></video></div>
         <div class="screen"><img src="media/s04.jpg" alt="aidlc config list で classic を確かめた画面" loading="lazy"></div></div></div>
 
     <div class="step"><div class="no">STEP 3</div><h3>classic の途中経過を git のブランチに残す</h3>
@@ -224,22 +237,22 @@ plan-approval: on <span class="c">(from scope classic)</span>
         <li>git が無視するローカルの作業状態（いま有効な作業を指す <code>active-intent</code> など）も別の場所へ退避します。残っていると、express を始めたときに「既存の作業の続きか」を聞かれ、質問が1つ増えます。</li></ol>
       <pre>git switch -c classic-途中 &amp;&amp; git add -A &amp;&amp; git commit -m "classic の途中経過" &amp;&amp; git switch main
 mkdir -p ../退避 &amp;&amp; mv aidlc/spaces/default/intents aidlc/.aidlc-sessions aidlc/active-memory ../退避/</pre>
-      <div class="two"><div class="screen"><video src="media/c03.mp4" poster="media/c03.jpg" controls muted playsinline preload="none"></video></div>
+      <div class="two"><div class="screen"><video src="media/c03.mp4" poster="media/c03.jpg" class="pv" autoplay muted loop playsinline preload="metadata"></video></div>
         <div class="screen"><img src="media/s05.jpg" alt="classic をブランチに残した画面" loading="lazy"></div></div></div>
 
     <div class="step"><div class="no">STEP 4</div><h3>新しいチャットで aidlc エージェントを選ぶ</h3>
       <ol><li>チャット欄の右上の「+」（New session）で新しいチャットを開きます。</li>
         <li>入力欄の右下の「Default」を押し、WORKSPACE にある <b>aidlc</b> を選びます。新しいチャットは毎回 Default から始まるので、毎回選びます。</li></ol>
-      <div class="two"><div class="screen"><video src="media/c04.mp4" poster="media/c04.jpg" controls muted playsinline preload="none"></video></div>
+      <div class="two"><div class="screen"><video src="media/c04.mp4" poster="media/c04.jpg" class="pv" autoplay muted loop playsinline preload="metadata"></video></div>
         <div class="screen"><img src="media/s08.jpg" alt="aidlc エージェントを選んだ画面" loading="lazy"></div></div></div>
 
     <div class="step"><div class="no">STEP 5</div><h3>express で依頼を送る</h3>
       <ol><li>入力欄に <code>/aidlc --scope express &lt;作りたいもの&gt;</code> を書いて Enter で送ります。classic と同じ文で、<code>--scope</code> の後ろだけを替えました。</li>
         <li>依頼文には、技術の条件（Python・依存は最小限・BM25・Ollama・ローカルで動けばよい）を最初から書いておきます。条件があいまいだと、それを聞く質問が増えるからです。</li></ol>
-      <div class="two"><div class="screen"><video src="media/c05.mp4" poster="media/c05.jpg" controls muted playsinline preload="none"></video></div>
+      <div class="two"><div class="screen"><video src="media/c05.mp4" poster="media/c05.jpg" class="pv" autoplay muted loop playsinline preload="metadata"></video></div>
         <div class="screen"><img src="media/s09.jpg" alt="express の依頼文を入力した画面" loading="lazy"></div></div>
       <p class="note">送ったあとの最初の返答（express の計画）:</p>
-      <div class="screen"><video src="media/c06.mp4" poster="media/c06.jpg" controls muted playsinline preload="none"></video></div></div>
+      <div class="screen"><video src="media/c06.mp4" poster="media/c06.jpg" class="pv" autoplay muted loop playsinline preload="metadata"></video></div></div>
   </section>
 
   <!-- ===================== 4 ===================== -->
@@ -262,7 +275,7 @@ mkdir -p ../退避 &amp;&amp; mv aidlc/spaces/default/intents aidlc/.aidlc-sessi
 
     <div class="step"><div class="no">STEP 6</div><h3>適用前の設定を一覧で見る</h3>
       <ol><li>ターミナルで <code>aidlc config list</code> を実行します。express では、ほとんどが最初から off か Minimal で、出どころは「(from scope express)」です。</li></ol>
-      <div class="screen"><video src="media/c07.mp4" poster="media/c07.jpg" controls muted playsinline preload="none"></video></div></div>
+      <div class="screen"><video src="media/c07.mp4" poster="media/c07.jpg" class="pv" autoplay muted loop playsinline preload="metadata"></video></div></div>
 
     <div class="step"><div class="no">STEP 7</div><h3>ターミナルから深さ・テスト方針・レビューを指定する</h3>
       <ol><li><code>aidlc engine config set &lt;設定&gt; &lt;値&gt; 2&gt;&amp;1</code> を実行します。</li>
@@ -271,26 +284,26 @@ mkdir -p ../退避 &amp;&amp; mv aidlc/spaces/default/intents aidlc/.aidlc-sessi
       <pre>aidlc engine config set depth minimal 2&gt;&amp;1
 aidlc engine config set test-strategy minimal 2&gt;&amp;1
 aidlc engine config set review none 2&gt;&amp;1</pre>
-      <div class="two"><div class="screen"><video src="media/c08.mp4" poster="media/c08.jpg" controls muted playsinline preload="none"></video></div>
+      <div class="two"><div class="screen"><video src="media/c08.mp4" poster="media/c08.jpg" class="pv" autoplay muted loop playsinline preload="metadata"></video></div>
         <div class="screen"><img src="media/s13.jpg" alt="ターミナルで深さとレビューを指定した結果" loading="lazy"></div></div></div>
 
     <div class="step"><div class="no">STEP 8</div><h3>確認を減らす設定は、ターミナルからは入れられない</h3>
       <ol><li><code>aidlc engine config set summary-confirmation off</code> をターミナルで実行すると、拒否されます。</li>
         <li>エラーの内容は「本人がチャットで頼んだ場合だけ止められる。Kiro のチャットで頼むこと」です。要約の確認・コード計画の承認・Guard Policy のように、確認を減らす方向の設定は、人が自分で頼んだことを AI-DLC が確かめる作りになっています。</li></ol>
-      <div class="two"><div class="screen"><video src="media/c09.mp4" poster="media/c09.jpg" controls muted playsinline preload="none"></video></div>
+      <div class="two"><div class="screen"><video src="media/c09.mp4" poster="media/c09.jpg" class="pv" autoplay muted loop playsinline preload="metadata"></video></div>
         <div class="screen"><img src="media/s15.jpg" alt="ターミナルからは拒否された画面" loading="lazy"></div></div></div>
 
     <div class="step"><div class="no">STEP 9</div><h3>チャットで設定をまとめて頼む</h3>
       <ol><li>Kiro のチャットに、<code>/aidlc config set</code> で始めて設定を並べた1通を送ります。</li>
         <li>返答で、各設定の出どころが「(from scope express)」から「(set by you)」に変わったことが分かります。</li></ol>
       <pre>/aidlc config set summary-confirmation off --plan-approval off --learnings off --sensors off --guard-policy off --review none --depth minimal --test-strategy minimal</pre>
-      <div class="screen"><video src="media/c10.mp4" poster="media/c10.jpg" controls muted playsinline preload="none"></video></div>
+      <div class="screen"><video src="media/c10.mp4" poster="media/c10.jpg" class="pv" autoplay muted loop playsinline preload="metadata"></video></div>
       <div class="two"><div class="screen"><img src="media/s16.jpg" alt="チャットに設定を入力した画面" loading="lazy"></div>
         <div class="screen"><img src="media/s17.jpg" alt="チャットで設定が通った画面" loading="lazy"></div></div></div>
 
     <div class="step"><div class="no">STEP 10</div><h3>適用後の設定を一覧で確かめる</h3>
       <ol><li>もう一度 <code>aidlc config list</code> を実行し、出どころが「(set by you)」になったことを確かめます。</li></ol>
-      <div class="two"><div class="screen"><video src="media/c11.mp4" poster="media/c11.jpg" controls muted playsinline preload="none"></video></div>
+      <div class="two"><div class="screen"><video src="media/c11.mp4" poster="media/c11.jpg" class="pv" autoplay muted loop playsinline preload="metadata"></video></div>
         <div class="screen"><img src="media/s18.jpg" alt="適用後の設定一覧" loading="lazy"></div></div></div>
   </section>
 
@@ -301,7 +314,7 @@ aidlc engine config set review none 2&gt;&amp;1</pre>
       <ol><li>文書が多いと、全部読むか、索引をどう作るかを AI が聞きやすく、処理も重くなります。</li>
         <li>要件の質問に答えるときに、「まず 11_引き継ぎ と 05_仕様書 の数本で一通り動かし、動いたら全体に広げる」と添えました。</li>
         <li>Kiro は実際に、絞ったデータでサーバーを立てて動作を確かめてから、全データでの検索の具合を確かめていました。</li></ol>
-      <div class="two"><div class="screen"><video src="media/c12.mp4" poster="media/c12.jpg" controls muted playsinline preload="none"></video></div>
+      <div class="two"><div class="screen"><video src="media/c12.mp4" poster="media/c12.jpg" class="pv" autoplay muted loop playsinline preload="metadata"></video></div>
         <div class="screen"><img src="media/s19.jpg" alt="データを絞る指示を入力した画面" loading="lazy"></div></div></div>
   </section>
 
@@ -312,7 +325,7 @@ aidlc engine config set review none 2&gt;&amp;1</pre>
       <ol><li>Kiro は、エージェントがコマンドを動かすたびに許可を求めます。ファイルを読むだけのコマンドでも止まります。</li>
         <li>許可のカードで <b>Always allow</b> を押すと、覚えるパターン（例: <code>python3 *</code>）と範囲（This workspace＝このフォルダだけ）を選ぶ欄が出ます。確かめて確定します。</li>
         <li><code>a &amp;&amp; b &amp;&amp; c</code> のようにつないだコマンドは、部分ごとに聞かれます。</li></ol>
-      <div class="two"><div class="screen"><video src="media/c13.mp4" poster="media/c13.jpg" controls muted playsinline preload="none"></video></div>
+      <div class="two"><div class="screen"><video src="media/c13.mp4" poster="media/c13.jpg" class="pv" autoplay muted loop playsinline preload="metadata"></video></div>
         <div class="screen"><img src="media/s21.jpg" alt="Always allow の範囲を選ぶ画面" loading="lazy"></div></div>
       <div class="warn"><b>注意。</b>Always allow は、そのパターンのコマンドを黙って実行させる設定です。外と通信する <code>curl</code> などは、毎回の Allow のままにしました。</div></div>
   </section>
@@ -341,5 +354,52 @@ aidlc engine config set review none 2&gt;&amp;1</pre>
 
   <footer class="mono">TOBISAKO RYUICHI — <a href="../">PORTFOLIO</a> ／ 2026-11-27 記録</footer>
 </div>
+
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="拡大表示">
+  <button class="x" type="button" aria-label="閉じる">×</button>
+  <div id="lbbody"></div>
+  <div class="lbcap">外側を押すか Esc で閉じます</div>
+</div>
+<script>
+(function(){
+  var lb = document.getElementById('lb'), body = document.getElementById('lbbody');
+  // 小さい動画: 見えている間だけ流す（アニメGIFのように）
+  var io = 'IntersectionObserver' in window ? new IntersectionObserver(function(es){
+    es.forEach(function(e){ var v = e.target; if (e.isIntersecting) { v.play().catch(function(){}); } else { v.pause(); } });
+  }, {rootMargin: '200px'}) : null;
+  document.querySelectorAll('video.pv').forEach(function(v){
+    v.removeAttribute('autoplay'); if (io) io.observe(v); else v.play().catch(function(){});
+  });
+  // 枠に「クリックで拡大」の札を付ける
+  document.querySelectorAll('.screen').forEach(function(s){
+    var m = s.querySelector('video,img'); if (!m) return;
+    var h = document.createElement('span'); h.className = 'hint';
+    h.textContent = m.tagName === 'VIDEO' ? '▶ クリックで拡大して再生' : '🔍 クリックで拡大';
+    s.appendChild(h);
+    s.addEventListener('click', function(){ open(m); });
+  });
+  function open(m){
+    body.innerHTML = '';
+    var el;
+    if (m.tagName === 'VIDEO') {
+      el = document.createElement('video');
+      el.src = m.getAttribute('src'); el.controls = true; el.autoplay = true; el.playsInline = true;
+      el.poster = m.getAttribute('poster') || '';
+    } else {
+      el = document.createElement('img'); el.src = m.getAttribute('src'); el.alt = m.alt || '';
+    }
+    el.addEventListener('click', function(ev){ ev.stopPropagation(); });
+    body.appendChild(el);
+    lb.classList.add('on'); document.body.style.overflow = 'hidden';
+    if (el.play) el.play().catch(function(){});
+  }
+  function close(){
+    var v = body.querySelector('video'); if (v) v.pause();
+    body.innerHTML = ''; lb.classList.remove('on'); document.body.style.overflow = '';
+  }
+  lb.addEventListener('click', close);
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') close(); });
+})();
+</script>
 </body>
 </html>
