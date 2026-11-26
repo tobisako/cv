@@ -207,7 +207,7 @@ plan-approval: on <span class="c">(from scope classic)</span>
         <li>入力欄の右下の「Default」を押し、WORKSPACE にある <b>aidlc</b> を選びます。</li>
         <li>新しいチャットは毎回 Default から始まるので、そのたびに選びます。</li></ol>
       <p class="note"><code>aidlc</code> エージェントは、AI-DLC を Kiro 用に設定したとき（<code>aidlc config --harness kiro</code>）に AI-DLC が追加するもので、名前も AI-DLC が決めています。Default のままでも <code>/aidlc</code> は動きますが、AI-DLC が動かすコマンドのたびに Kiro が許可を求めます（出典: <a href="https://github.com/awslabs/aidlc-workflows/blob/main/docs/guide/harnesses/kiro.md#start-ai-dlc-in-a-kiro-ide-chat" target="_blank" rel="noopener">Running AI-DLC on Kiro「Start AI-DLC in a Kiro IDE chat」</a>）。</p>
-      <div class="two"><div class="screen"><video src="media/c04.mp4" poster="media/c04.jpg" class="pv" autoplay muted loop playsinline preload="metadata"></video></div>
+      <div class="two"><div class="screen"><video src="media/c04.mp4?v=2" poster="media/c04.jpg?v=2" class="pv" autoplay muted loop playsinline preload="metadata"></video></div>
         <div class="screen"><img src="media/s08.jpg" alt="aidlc エージェントを選んだ画面" loading="lazy"></div></div></div>
 
     <div class="step"><div class="no">STEP 3</div><h3>express を指定して始める</h3>
@@ -215,10 +215,8 @@ plan-approval: on <span class="c">(from scope classic)</span>
         <li>最初の返答に、express の計画（ステージの数と承認ゲートの数）が出ます。</li>
         <li>作りたいものには、範囲と技術の条件を最初から書いておきます（例: Python・依存は最小限・検索は BM25・ローカルの Ollama・ローカルで動けばよい）。条件があいまいだと、それを聞く質問が増えます。</li></ol>
       <pre>/aidlc --scope express 架空の開発会社の社内文書（data/ の Markdown）を読み込み、後任者の質問に、根拠の文書名つきで日本語で答える Web アプリの PoC を作る。Python で依存は最小限、検索は文字 n-gram の BM25、回答の生成はローカルの Ollama（gemma3:4b）。</pre>
-      <div class="two"><div class="screen"><video src="media/c05.mp4" poster="media/c05.jpg" class="pv" autoplay muted loop playsinline preload="metadata"></video></div>
+      <div class="two"><div class="screen"><video src="media/c05.mp4?v=2" poster="media/c05.jpg?v=2" class="pv" autoplay muted loop playsinline preload="metadata"></video></div>
         <div class="screen"><img src="media/s09.jpg" alt="express を指定して依頼を入力した画面" loading="lazy"></div></div>
-      <p class="note">送ったあとの最初の返答（express の計画）:</p>
-      <div class="screen"><video src="media/c06.mp4" poster="media/c06.jpg" class="pv" autoplay muted loop playsinline preload="metadata"></video></div>
       <div class="warn"><b>作業の途中で替えるとき。</b>すでに classic で進めている作業は、チャットに <code>/aidlc --scope express</code> とだけ送ると express に切り替わります。済んだステージと承認はそのまま残り、残りのステージが express の計画に組み替わります。</div></div>
   </section>
 
@@ -243,7 +241,7 @@ plan-approval: on <span class="c">(from scope classic)</span>
     <div class="step"><div class="no">STEP 4</div><h3>いまの設定を一覧で見る</h3>
       <ol><li>ターミナルで <code>aidlc config list</code> を実行します。</li>
         <li>値の横の「(from scope ○○)」は、プロファイルから来た値という意味です。</li></ol>
-      <div class="screen"><video src="media/c07.mp4" poster="media/c07.jpg" class="pv" autoplay muted loop playsinline preload="metadata"></video></div></div>
+      <div class="screen"><video src="media/c07.mp4?v=2" poster="media/c07.jpg?v=2" class="pv" autoplay muted loop playsinline preload="metadata"></video></div></div>
 
     <div class="step"><div class="no">STEP 5</div><h3>ターミナルで深さ・テスト方針・レビューを変える</h3>
       <ol><li><code>aidlc engine config set &lt;設定&gt; &lt;値&gt; 2&gt;&amp;1</code> を実行します。</li>
@@ -252,14 +250,14 @@ plan-approval: on <span class="c">(from scope classic)</span>
       <pre>aidlc engine config set depth minimal 2&gt;&amp;1
 aidlc engine config set test-strategy minimal 2&gt;&amp;1
 aidlc engine config set review none 2&gt;&amp;1</pre>
-      <div class="two"><div class="screen"><video src="media/c08.mp4" poster="media/c08.jpg" class="pv" autoplay muted loop playsinline preload="metadata"></video></div>
+      <div class="two"><div class="screen"><video src="media/c08.mp4?v=2" poster="media/c08.jpg?v=2" class="pv" autoplay muted loop playsinline preload="metadata"></video></div>
         <div class="screen"><img src="media/s13.jpg" alt="ターミナルで深さとレビューを指定した結果" loading="lazy"></div></div></div>
 
     <div class="step"><div class="no">STEP 6</div><h3>確認を止める設定は、チャットで頼む</h3>
       <ol><li>Kiro のチャットに、<code>/aidlc config set</code> で始めて、変えたい設定を並べた1通を送ります。</li>
         <li>返答で、各設定の出どころが「(set by you)」に変わったことが分かります。</li></ol>
       <pre>/aidlc config set summary-confirmation off --plan-approval off --learnings off --sensors off --guard-policy off --review none --depth minimal --test-strategy minimal</pre>
-      <div class="screen"><video src="media/c10.mp4" poster="media/c10.jpg" class="pv" autoplay muted loop playsinline preload="metadata"></video></div>
+      <div class="screen"><video src="media/c10.mp4?v=2" poster="media/c10.jpg?v=2" class="pv" autoplay muted loop playsinline preload="metadata"></video></div>
       <div class="two"><div class="screen"><img src="media/s16.jpg" alt="チャットに設定を入力した画面" loading="lazy"></div>
         <div class="screen"><img src="media/s17.jpg" alt="チャットで設定が通った画面" loading="lazy"></div></div>
       <div class="warn"><b>ターミナルからは変えられません。</b>要約の確認・コード計画の承認・Guard Policy のように確認を減らす設定は、ターミナルの <code>aidlc engine config set</code> では拒否され、「Kiro のチャットで頼むこと」と返ります。人が自分で頼んだことを AI-DLC が確かめる作りです。</div>
@@ -267,7 +265,7 @@ aidlc engine config set review none 2&gt;&amp;1</pre>
 
     <div class="step"><div class="no">STEP 7</div><h3>変わったことを一覧で確かめる</h3>
       <ol><li>もう一度 <code>aidlc config list</code> を実行し、出どころが「(set by you)」になったことを確かめます。</li></ol>
-      <div class="two"><div class="screen"><video src="media/c11.mp4" poster="media/c11.jpg" class="pv" autoplay muted loop playsinline preload="metadata"></video></div>
+      <div class="two"><div class="screen"><video src="media/c11.mp4?v=2" poster="media/c11.jpg?v=2" class="pv" autoplay muted loop playsinline preload="metadata"></video></div>
         <div class="screen"><img src="media/s18.jpg" alt="変更後の設定一覧" loading="lazy"></div></div></div>
   </section>
 
@@ -278,7 +276,7 @@ aidlc engine config set review none 2&gt;&amp;1</pre>
       <ol><li>文書が多いと、全部読むか、索引をどう作るかを AI が聞きやすく、処理も重くなります。</li>
         <li>依頼文か、要件の質問への回答に、「まず数本で一通り動かし、動いたら全体に広げる」と書き添えます。</li></ol>
       <pre>データを絞って進める：開発と動作確認は、まず data/11_引き継ぎ と data/05_仕様書 の数本だけで一通り動かし、動いたら data/ 全体に広げる。</pre>
-      <div class="two"><div class="screen"><video src="media/c12.mp4" poster="media/c12.jpg" class="pv" autoplay muted loop playsinline preload="metadata"></video></div>
+      <div class="two"><div class="screen"><video src="media/c12.mp4?v=2" poster="media/c12.jpg?v=2" class="pv" autoplay muted loop playsinline preload="metadata"></video></div>
         <div class="screen"><img src="media/s19.jpg" alt="データを絞る指示を入力した画面" loading="lazy"></div></div></div>
   </section>
 
@@ -289,7 +287,7 @@ aidlc engine config set review none 2&gt;&amp;1</pre>
       <ol><li>Kiro は、エージェントがコマンドを動かすたびに許可を求めます。ファイルを読むだけのコマンドでも止まります。</li>
         <li>許可のカードで <b>Always allow</b> を押すと、覚えるパターン（例: <code>python3 *</code>）と範囲（This workspace＝このフォルダだけ）を選ぶ欄が出ます。確かめて、もう一度 Always allow で確定します。</li>
         <li><code>a &amp;&amp; b &amp;&amp; c</code> のようにつないだコマンドは、部分ごとに聞かれます。</li></ol>
-      <div class="two"><div class="screen"><video src="media/c13.mp4" poster="media/c13.jpg" class="pv" autoplay muted loop playsinline preload="metadata"></video></div>
+      <div class="two"><div class="screen"><video src="media/c13.mp4?v=2" poster="media/c13.jpg?v=2" class="pv" autoplay muted loop playsinline preload="metadata"></video></div>
         <div class="screen"><img src="media/s21.jpg" alt="Always allow の範囲を選ぶ画面" loading="lazy"></div></div>
       <div class="warn"><b>注意。</b>Always allow は、そのパターンのコマンドを黙って実行させる設定です。外と通信する <code>curl</code> のようなコマンドは、毎回の Allow のままにするほうが安全です。</div></div>
   </section>
