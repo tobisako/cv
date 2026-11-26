@@ -238,12 +238,12 @@ plan-approval: on <span class="c">(from scope classic)</span>
       </tbody>
     </table>
 
-    <div class="step"><div class="no">STEP 4</div><h3>いまの設定を一覧で見る</h3>
+    <div class="step"><div class="no">STEP 1</div><h3>いまの設定を一覧で見る</h3>
       <ol><li>ターミナルで <code>aidlc config list</code> を実行します。</li>
         <li>値の横の「(from scope ○○)」は、プロファイルから来た値という意味です。</li></ol>
       <div class="screen"><video src="media/c07.mp4?v=2" poster="media/c07.jpg?v=2" class="pv" autoplay muted loop playsinline preload="metadata"></video></div></div>
 
-    <div class="step"><div class="no">STEP 5</div><h3>ターミナルで深さ・テスト方針・レビューを変える</h3>
+    <div class="step"><div class="no">STEP 2</div><h3>ターミナルで深さ・テスト方針・レビューを変える</h3>
       <ol><li><code>aidlc engine config set &lt;設定&gt; &lt;値&gt; 2&gt;&amp;1</code> を実行します。</li>
         <li>結果の文は標準エラーに出るので、<code>2&gt;&amp;1</code> を付けないと何も表示されません。</li>
         <li>すでに同じ値なら「Depth is already Minimal」のように返ります。</li></ol>
@@ -253,7 +253,7 @@ aidlc engine config set review none 2&gt;&amp;1</pre>
       <div class="two"><div class="screen"><video src="media/c08.mp4?v=2" poster="media/c08.jpg?v=2" class="pv" autoplay muted loop playsinline preload="metadata"></video></div>
         <div class="screen"><img src="media/s13.jpg" alt="ターミナルで深さとレビューを指定した結果" loading="lazy"></div></div></div>
 
-    <div class="step"><div class="no">STEP 6</div><h3>確認を止める設定は、チャットで頼む</h3>
+    <div class="step"><div class="no">STEP 3</div><h3>確認を止める設定は、チャットで頼む</h3>
       <ol><li>Kiro のチャットに、<code>/aidlc config set</code> で始めて、変えたい設定を並べた1通を送ります。</li>
         <li>返答で、各設定の出どころが「(set by you)」に変わったことが分かります。</li></ol>
       <p class="note">公式ドキュメント: <a href="https://awslabs.github.io/aidlc-workflows/guide/13-customization/#ceremony-switches" target="_blank" rel="noopener">Customization「Ceremony Switches」</a>（設定ごとの意味）・<a href="https://awslabs.github.io/aidlc-workflows/guide/13-customization/#plan-approval" target="_blank" rel="noopener">「Plan approval」</a>・<a href="https://awslabs.github.io/aidlc-workflows/guide/12-cli-commands/#aidlc-sensors-learnings-summary-confirmation-ceremony-controls" target="_blank" rel="noopener">CLI Commands「--sensors / --learnings / --summary-confirmation」</a></p>
@@ -264,7 +264,7 @@ aidlc engine config set review none 2&gt;&amp;1</pre>
       <div class="warn"><b>ターミナルからは変えられません。</b>要約の確認・コード計画の承認・Guard Policy のように確認を減らす設定は、ターミナルの <code>aidlc engine config set</code> では拒否され、「Kiro のチャットで頼むこと」と返ります。人が自分で頼んだことを AI-DLC が確かめる作りです。</div>
       <div class="screen" style="max-width:640px"><img src="media/s15.jpg" alt="ターミナルからは拒否された画面" loading="lazy"></div></div>
 
-    <div class="step"><div class="no">STEP 7</div><h3>変わったことを一覧で確かめる</h3>
+    <div class="step"><div class="no">STEP 4</div><h3>変わったことを一覧で確かめる</h3>
       <ol><li>もう一度 <code>aidlc config list</code> を実行し、出どころが「(set by you)」になったことを確かめます。</li></ol>
       <div class="two"><div class="screen"><video src="media/c11.mp4?v=2" poster="media/c11.jpg?v=2" class="pv" autoplay muted loop playsinline preload="metadata"></video></div>
         <div class="screen"><img src="media/s18.jpg" alt="変更後の設定一覧" loading="lazy"></div></div></div>
@@ -273,7 +273,7 @@ aidlc engine config set review none 2&gt;&amp;1</pre>
   <!-- ===================== 4 ===================== -->
   <section id="data">
     <h2>4. 高速化設定：データを絞る<span class="tag">DATA</span></h2>
-    <div class="step"><div class="no">STEP 8</div><h3>最初は数本の文書で一通り動かすよう伝える</h3>
+    <div class="step"><div class="no">STEP 1</div><h3>最初は数本の文書で一通り動かすよう伝える</h3>
       <ol><li>文書が多いと、全部読むか、索引をどう作るかを AI が聞きやすく、処理も重くなります。</li>
         <li>依頼文か、要件の質問への回答に、「まず数本で一通り動かし、動いたら全体に広げる」と書き添えます。</li></ol>
       <pre>データを絞って進める：開発と動作確認は、まず data/11_引き継ぎ と data/05_仕様書 の数本だけで一通り動かし、動いたら data/ 全体に広げる。</pre>
@@ -284,7 +284,7 @@ aidlc engine config set review none 2&gt;&amp;1</pre>
   <!-- ===================== 5 ===================== -->
   <section id="allow">
     <h2>5. 高速化設定：コマンドの許可を減らす<span class="tag">ALLOW</span></h2>
-    <div class="step"><div class="no">STEP 9</div><h3>Always allow で、同じ形のコマンドを次から聞かせない</h3>
+    <div class="step"><div class="no">STEP 1</div><h3>Always allow で、同じ形のコマンドを次から聞かせない</h3>
       <ol><li>Kiro は、エージェントがコマンドを動かすたびに許可を求めます。ファイルを読むだけのコマンドでも止まります。</li>
         <li>許可のカードで <b>Always allow</b> を押すと、覚えるパターン（例: <code>python3 *</code>）と範囲（This workspace＝このフォルダだけ）を選ぶ欄が出ます。確かめて、もう一度 Always allow で確定します。</li>
         <li><code>a &amp;&amp; b &amp;&amp; c</code> のようにつないだコマンドは、部分ごとに聞かれます。</li></ol>
