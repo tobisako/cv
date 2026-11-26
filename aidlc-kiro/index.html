@@ -256,6 +256,7 @@ aidlc engine config set review none 2&gt;&amp;1</pre>
     <div class="step"><div class="no">STEP 6</div><h3>確認を止める設定は、チャットで頼む</h3>
       <ol><li>Kiro のチャットに、<code>/aidlc config set</code> で始めて、変えたい設定を並べた1通を送ります。</li>
         <li>返答で、各設定の出どころが「(set by you)」に変わったことが分かります。</li></ol>
+      <p class="note">公式ドキュメント: <a href="https://awslabs.github.io/aidlc-workflows/guide/13-customization/#ceremony-switches" target="_blank" rel="noopener">Customization「Ceremony Switches」</a>（設定ごとの意味）・<a href="https://awslabs.github.io/aidlc-workflows/guide/13-customization/#plan-approval" target="_blank" rel="noopener">「Plan approval」</a>・<a href="https://awslabs.github.io/aidlc-workflows/guide/12-cli-commands/#aidlc-sensors-learnings-summary-confirmation-ceremony-controls" target="_blank" rel="noopener">CLI Commands「--sensors / --learnings / --summary-confirmation」</a></p>
       <pre>/aidlc config set summary-confirmation off --plan-approval off --learnings off --sensors off --guard-policy off --review none --depth minimal --test-strategy minimal</pre>
       <div class="screen"><video src="media/c10.mp4?v=2" poster="media/c10.jpg?v=2" class="pv" autoplay muted loop playsinline preload="metadata"></video></div>
       <div class="two"><div class="screen"><img src="media/s16.jpg" alt="チャットに設定を入力した画面" loading="lazy"></div>
