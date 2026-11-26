@@ -114,6 +114,10 @@
 
   /* 小さい動画はアニメGIFのように流しておき、押すと大きく開いて最初から再生する */
   .screen{position:relative;cursor:zoom-in}
+  /* 静止画は黄色の枠（動画の水色と見分ける） */
+  .screen:has(> img){border-color:#ffe23f;box-shadow:0 0 22px #ffe23f40}
+  .screen:has(> img) .hint{color:#ffe23f;border-color:#ffe23f;box-shadow:0 0 10px #ffe23f55}
+  .lb img{border-color:#ffe23f;box-shadow:0 0 40px #ffe23f55}
   .screen .hint{position:absolute;right:10px;bottom:10px;background:#05061acc;color:var(--cyan);
     border:1px solid var(--cyan);border-radius:999px;padding:3px 11px;font-size:12px;pointer-events:none;
     font-family:"JetBrains Mono",monospace;box-shadow:0 0 10px #3ff0ff55}
