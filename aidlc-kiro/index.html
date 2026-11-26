@@ -144,10 +144,10 @@
     <nav class="toc">
       <a href="#app">1. できたアプリ</a>
       <a href="#measure">2. classic と express の比較</a>
-      <a href="#switch">3. classic から express に替える</a>
-      <a href="#settings">4. 確認と承認を減らす設定</a>
-      <a href="#data">5. データを絞る</a>
-      <a href="#allow">6. コマンドの許可を減らす</a>
+      <a href="#switch">3. 高速化設定：classic から express に替える</a>
+      <a href="#settings">4. 高速化設定：確認と承認を減らす</a>
+      <a href="#data">5. 高速化設定：データを絞る</a>
+      <a href="#allow">6. 高速化設定：コマンドの許可を減らす</a>
       <a href="#env">7. 環境と出典</a>
     </nav>
   </header>
@@ -206,7 +206,7 @@
 
   <!-- ===================== 3 ===================== -->
   <section id="switch">
-    <h2>3. classic から express に替える<span class="tag">SWITCH</span></h2>
+    <h2>3. 高速化設定：classic から express に替える<span class="tag">SWITCH</span></h2>
     <div class="body">
       <p>ワークフロープロファイルの変え方は2つあります。今回は「最初から作り直して比べる」ので、2つ目の方法をとりました。</p>
       <p>・途中で替える: <code>/aidlc --scope express</code>。済んだステージは残し、残りを express の計画に組み替えます。<br>
@@ -257,7 +257,7 @@ mkdir -p ../退避 &amp;&amp; mv aidlc/spaces/default/intents aidlc/.aidlc-sessi
 
   <!-- ===================== 4 ===================== -->
   <section id="settings">
-    <h2>4. 確認と承認を減らす設定<span class="tag">CEREMONY</span></h2>
+    <h2>4. 高速化設定：確認と承認を減らす<span class="tag">CEREMONY</span></h2>
     <div class="body"><p>AI-DLC には、ステージの途中で人に確認させる仕組みが、プロファイルとは別の設定として用意されています。express は、そのほとんどを最初から止めています。ここでは、それを確かめたうえで、1つずつはっきり指定しました。</p></div>
     <table>
       <thead><tr><th>設定</th><th>止まる場面</th><th>指定の仕方</th><th>express の既定</th></tr></thead>
@@ -309,7 +309,7 @@ aidlc engine config set review none 2&gt;&amp;1</pre>
 
   <!-- ===================== 5 ===================== -->
   <section id="data">
-    <h2>5. データを絞る<span class="tag">DATA</span></h2>
+    <h2>5. 高速化設定：データを絞る<span class="tag">DATA</span></h2>
     <div class="step"><div class="no">STEP 11</div><h3>最初は数本の文書で一通り動かす</h3>
       <ol><li>文書が多いと、全部読むか、索引をどう作るかを AI が聞きやすく、処理も重くなります。</li>
         <li>要件の質問に答えるときに、「まず 11_引き継ぎ と 05_仕様書 の数本で一通り動かし、動いたら全体に広げる」と添えました。</li>
@@ -320,7 +320,7 @@ aidlc engine config set review none 2&gt;&amp;1</pre>
 
   <!-- ===================== 6 ===================== -->
   <section id="allow">
-    <h2>6. コマンドの許可を減らす<span class="tag">ALLOW</span></h2>
+    <h2>6. 高速化設定：コマンドの許可を減らす<span class="tag">ALLOW</span></h2>
     <div class="step"><div class="no">STEP 12</div><h3>Always allow で、同じ形のコマンドを次から聞かせない</h3>
       <ol><li>Kiro は、エージェントがコマンドを動かすたびに許可を求めます。ファイルを読むだけのコマンドでも止まります。</li>
         <li>許可のカードで <b>Always allow</b> を押すと、覚えるパターン（例: <code>python3 *</code>）と範囲（This workspace＝このフォルダだけ）を選ぶ欄が出ます。確かめて確定します。</li>
